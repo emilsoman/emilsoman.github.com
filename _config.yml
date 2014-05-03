@@ -1,15 +1,19 @@
-name: "hikari"
-description: "Fluid, responsive blog theme for Jekyll"
+name: "Emil Soman"
+description: "Coder, artist, guitarist, GardenCityRubyConf organizer"
 
-author: "John Doge"
+author: "Emil Soman"
 
-url: "http://m3xm.github.io"
-baseurl: ""
+url: "http://www.emilsoman.com"
+twitter: emilsoman
+email: emil.soman@gmail.com
+github: emilsoman
+work_name: Codemancers
+work_url: http://www.codemancers.com
 
 markdown: rdiscount
-permalink: :year/:month/:title.html
+permalink: /blog/:year/:month/:day/:title
 pygments: true
 
 # Google Analytics
-ga_domain: m3xm.github.io
-ga_tracking_id: UA-47727049-1
+ga_domain: www.emilsoman.com
+ga_tracking_id: UA-36099649-1

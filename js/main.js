@@ -2,7 +2,7 @@
 //window.onload will do the job for now.
 window.onload = function() {
 
-    var $menuIcon = document.getElementsByClassName("menu-icon")[0],
+    var $menuIcon = document.getElementsByClassName("js-menu-icon")[0],
         $offCanva = document.getElementById('off-canvas');
 
     $menuIcon.addEventListener('click', function() {
@@ -11,13 +11,13 @@ window.onload = function() {
         removeClass($menuIcon, 'hover');
     }, false);
 
-    $menuIcon.addEventListener('mouseenter', function() {
-        addClass($menuIcon, 'hover');
-    });
+    //$menuIcon.addEventListener('mouseenter', function() {
+        //addClass($menuIcon, 'hover');
+    //});
 
-    $menuIcon.addEventListener('mouseleave', function() {
-        removeClass($menuIcon, 'hover');
-    });
+    //$menuIcon.addEventListener('mouseleave', function() {
+        //removeClass($menuIcon, 'hover');
+    //});
 
     function addClass(element, className) {
         element.className += " " + className;
