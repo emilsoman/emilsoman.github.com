@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>Emil Soman - Coder, artist, guitarist, GardenCityRubyConf organizer</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="Fluid, responsive blog theme for Jekyll.">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="http://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="off-canvas">
+      <div id="avatar">
+        <img src="/assets/img/avatar.jpeg" alt="Profile Picture">
+      </div>
+      <div id="bio">
+        <p>Coder at Codemancers, Bangalore. GardenCityRubyConf organizer.</p>
+        <p>Works with Ruby, JS, C++, AWS, Chef and Vim.</p>
+        <p>Plays the guitar and sketches other times.</p>
+      </div>
+    </div>
+
+    <header>
+      <div class="h-wrap">
+        <h1 class="title"><a href="/" title="Back to Homepage">Emil Soman</a></h1>
+      </div>
+      <div class="icons-list">
+        <a href="#" class="js-menu-icon" title="Bio"><span class="icon-profile"></span></a>
+        <a href="http://github.com/emilsoman" title="Github"><span class="icon-github"></span></a>
+        <a href="http://twitter.com/emilsoman" title="Twitter"><span class="icon-twitter2"></span></a>
+        <a href="mailto:emil.soman@gmail.com" title= "Email"><span class="icon-mail"></span></a>
+        <a href="http://www.codemancers.com" title="Work"><span class="icon-briefcase"></span></a>
+        <a href="/atom.xml" title= "RSS Feed"><span class="icon-feed"></span></a>
+      </div>
+    </header>
+
+    <main>
+      <section id="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2012-11-06T18:09:00+05:30" itemprop="datePublished">
+          06 November 2012
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Chef Resources</h1>
+    <div itemprop="articleBody">
+      <p>Here's a list of all the Resources that Chef can work with :</p>
+
+<ol>
+<li><strong>Cookbook File</strong> - Transfers files in <code>files/</code> directory of a cookbook to the node</li>
+<li><strong>Cron</strong> - Manages cron entries</li>
+<li><strong>Deploy</strong> - Deploys your app, talks to the project's source control</li>
+<li><strong>Directory</strong> - Manages a directory</li>
+<li><strong>Env</strong> - This is for windows to set the environment</li>
+<li><strong>Erlang Call</strong> - Connects to a distributed erlang node and makes a call</li>
+<li><strong>Execute</strong> - Executes a command</li>
+<li><strong>File</strong> - Manages files already on the node</li>
+<li><strong>Git</strong> - Source Control Management</li>
+<li><strong>Group</strong> - Manages a local group</li>
+<li><strong>HTTP Request</strong> - Send an HTTP request with an arbitrary message</li>
+<li><strong>Ifconfig</strong> - Manage network interfaces</li>
+<li><strong>Links</strong> - Manage symbolic/hard links</li>
+<li><strong>Log</strong> - Adds log entries from your recipes</li>
+<li><strong>Mdadm</strong> - Manage <a href="http://en.wikipedia.org/wiki/Mdadm">mdadm</a> software RAID devices</li>
+<li><strong>Mount</strong> - Manage a mounted filesystem</li>
+<li><strong>Ohai</strong> - Reload node's ohai configuration. Recipes can use it to reload the configs after touching any of those.</li>
+<li><strong>Package</strong> - Install a package (<em>gem_package - to install gems</em> )</li>
+<li><strong>PowerShell Script</strong> - Executes a script using the PowerShell interpreter</li>
+<li><strong>Remote Directory</strong> - Recursively transfers directories from <code>files/default</code> directory of cookbook to the node</li>
+<li><strong>Remote File</strong> - Transfer files from a remote source</li>
+<li><strong>Route</strong> - Manages system routing tables. Works only on Linux now.</li>
+<li><strong>Ruby Block</strong> - Executes ruby code when the recipes run , not during compilation</li>
+<li><strong>SCM</strong> - Source code management</li>
+<li><strong>Script</strong> - Execute a script using the specified interpreter</li>
+<li><strong>Service</strong> - Manage a service</li>
+<li><strong>Subversion</strong> - A provider for the SCM resource</li>
+<li><strong>Template</strong> - Manage file content with Ruby ERB template</li>
+<li><strong>User</strong> - Manage local users</li>
+</ol>
+
+
+<p>For examples and detailed documentation , here's the <a href="http://wiki.opscode.com/display/chef/Resources">official doc</a> .
+Now you know what resources to use when writing your own recipes !</p>
+
+    </div>
+    <div id="share" class="feat">
+      <a href="http://twitter.com/share" class="popup">
+        <span class="icon-twitter"></span>
+      </a>
+    </div>
+    
+      <a rel="next" href="/blog/2012/11/07/multienvironment-chef-clients-with-vagrant" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/blog/2012/11/06/setting-up-chef-client" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+    </main>
+
+    <footer>
+      <small>Theme:<a href="https://github.com/m3xm/hikari-for-Jekyll">hikari</a></small>
+      <small>&copy;Emil Soman</small>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36099649-1', 'www.emilsoman.com');
+        ga('send', 'pageview');
+      </script>
+    
+
+  </body>
+</html>

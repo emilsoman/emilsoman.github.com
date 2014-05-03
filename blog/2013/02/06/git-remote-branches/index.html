@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>Emil Soman - Coder, artist, guitarist, GardenCityRubyConf organizer</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="Fluid, responsive blog theme for Jekyll.">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="http://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="off-canvas">
+      <div id="avatar">
+        <img src="/assets/img/avatar.jpeg" alt="Profile Picture">
+      </div>
+      <div id="bio">
+        <p>Coder at Codemancers, Bangalore. GardenCityRubyConf organizer.</p>
+        <p>Works with Ruby, JS, C++, AWS, Chef and Vim.</p>
+        <p>Plays the guitar and sketches other times.</p>
+      </div>
+    </div>
+
+    <header>
+      <div class="h-wrap">
+        <h1 class="title"><a href="/" title="Back to Homepage">Emil Soman</a></h1>
+      </div>
+      <div class="icons-list">
+        <a href="#" class="js-menu-icon" title="Bio"><span class="icon-profile"></span></a>
+        <a href="http://github.com/emilsoman" title="Github"><span class="icon-github"></span></a>
+        <a href="http://twitter.com/emilsoman" title="Twitter"><span class="icon-twitter2"></span></a>
+        <a href="mailto:emil.soman@gmail.com" title= "Email"><span class="icon-mail"></span></a>
+        <a href="http://www.codemancers.com" title="Work"><span class="icon-briefcase"></span></a>
+        <a href="/atom.xml" title= "RSS Feed"><span class="icon-feed"></span></a>
+      </div>
+    </header>
+
+    <main>
+      <section id="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2013-02-06T17:16:00+05:30" itemprop="datePublished">
+          06 February 2013
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Git Remote Branches</h1>
+    <div itemprop="articleBody">
+      <p>To avoid forgetting and depending on random links from google again :</p>
+
+<h4>Push a local branch called <code>new_branch</code> to a remote branch :</h4>
+
+<pre><code>git push -u origin new_branch
+</code></pre>
+
+<h4>To checkout a branch <code>new_branch</code> from remote <code>origin/new_branch</code>:</h4>
+
+<pre><code>git checkout -b new_branch origin/new_branch
+</code></pre>
+
+<p>Or:
+    git checkout --track origin/new_branch</p>
+
+<h4>To delete a remote branch <code>serverfix</code>:</h4>
+
+<pre><code>git push origin :serverfix
+</code></pre>
+
+<h4>To delete all stale(already deleted in remote) branches :</h4>
+
+<pre><code>git remote prune origin
+#add --dry-run to see a list of branches that will be pruned without actually doing it.
+git branch -d branch_to_be_deleted
+</code></pre>
+
+    </div>
+    <div id="share" class="feat">
+      <a href="http://twitter.com/share" class="popup">
+        <span class="icon-twitter"></span>
+      </a>
+    </div>
+    
+      <a rel="next" href="/blog/2013/02/08/semantic-versioning-for-code-releases" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/blog/2013/01/21/start-over-with-design-patterns" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+    </main>
+
+    <footer>
+      <small>Theme:<a href="https://github.com/m3xm/hikari-for-Jekyll">hikari</a></small>
+      <small>&copy;Emil Soman</small>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36099649-1', 'www.emilsoman.com');
+        ga('send', 'pageview');
+      </script>
+    
+
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>Emil Soman - Coder, artist, guitarist, GardenCityRubyConf organizer</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="Fluid, responsive blog theme for Jekyll.">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="http://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="off-canvas">
+      <div id="avatar">
+        <img src="/assets/img/avatar.jpeg" alt="Profile Picture">
+      </div>
+      <div id="bio">
+        <p>Coder at Codemancers, Bangalore. GardenCityRubyConf organizer.</p>
+        <p>Works with Ruby, JS, C++, AWS, Chef and Vim.</p>
+        <p>Plays the guitar and sketches other times.</p>
+      </div>
+    </div>
+
+    <header>
+      <div class="h-wrap">
+        <h1 class="title"><a href="/" title="Back to Homepage">Emil Soman</a></h1>
+      </div>
+      <div class="icons-list">
+        <a href="#" class="js-menu-icon" title="Bio"><span class="icon-profile"></span></a>
+        <a href="http://github.com/emilsoman" title="Github"><span class="icon-github"></span></a>
+        <a href="http://twitter.com/emilsoman" title="Twitter"><span class="icon-twitter2"></span></a>
+        <a href="mailto:emil.soman@gmail.com" title= "Email"><span class="icon-mail"></span></a>
+        <a href="http://www.codemancers.com" title="Work"><span class="icon-briefcase"></span></a>
+        <a href="/atom.xml" title= "RSS Feed"><span class="icon-feed"></span></a>
+      </div>
+    </header>
+
+    <main>
+      <section id="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2012-11-07T13:55:00+05:30" itemprop="datePublished">
+          07 November 2012
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">MultiEnvironment chef-clients with Vagrant</h1>
+    <div itemprop="articleBody">
+      <p>I'm doing a lot of things with Chef in my current project, and I was looking for a way to test the client-server architecture of Chef . I could get hold of a couple of unused machines from the IT guys , but that isn't such a cool thing to do.</p>
+
+<p>How about this - multiple environments in my own development machine, which I can screw up to my heart's content , erase everything and restart my test as many times as I want in a flash ? That would be sweet !</p>
+
+<p>Say hello to Vagrant . I have Vagrant set up in my machine , and you should have it too . If you haven't done that already , <a href="/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/">this post</a> will help you do just that.</p>
+
+<p>Enough chit chat , let's figure out the multi-environment thingy .</p>
+
+<p>I want two independent virtualmachines, one running lucid32 another running precise32 , just for the demo. I’m going to use these as my chef-clients to test out Chef.</p>
+
+<p>I destroyed my existing VM by running :
+    vagrant destroy</p>
+
+<p>Modified my Vagrantfile to look like this:</p>
+
+<script src="https://gist.github.com/4030169.js?file=Vagrantfile"> </script>
+
+
+<p>lucid32 machine is <em>node1</em> and precise32 is <em>node2</em></p>
+
+<p>In one tab, I run :
+    vagrant up node1
+    vagrant ssh node1
+    vagrant@lucid32:~$</p>
+
+<p>and in a second tab :
+    vagrant up node2
+    vagrant ssh node2
+    vagrant@precise32:~$</p>
+
+<p>Follow <a href="/blog/2012/11/06/setting-up-chef-client/">my post on setting up Chef-Client</a> to set up chef-client on the machines and we're done !</p>
+
+    </div>
+    <div id="share" class="feat">
+      <a href="http://twitter.com/share" class="popup">
+        <span class="icon-twitter"></span>
+      </a>
+    </div>
+    
+      <a rel="next" href="/blog/2012/11/07/roll-your-own-gems-with-jeweler" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/blog/2012/11/06/chef-resources" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+    </main>
+
+    <footer>
+      <small>Theme:<a href="https://github.com/m3xm/hikari-for-Jekyll">hikari</a></small>
+      <small>&copy;Emil Soman</small>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36099649-1', 'www.emilsoman.com');
+        ga('send', 'pageview');
+      </script>
+    
+
+  </body>
+</html>

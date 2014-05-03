@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>Emil Soman - Coder, artist, guitarist, GardenCityRubyConf organizer</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="Fluid, responsive blog theme for Jekyll.">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="http://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="off-canvas">
+      <div id="avatar">
+        <img src="/assets/img/avatar.jpeg" alt="Profile Picture">
+      </div>
+      <div id="bio">
+        <p>Coder at Codemancers, Bangalore. GardenCityRubyConf organizer.</p>
+        <p>Works with Ruby, JS, C++, AWS, Chef and Vim.</p>
+        <p>Plays the guitar and sketches other times.</p>
+      </div>
+    </div>
+
+    <header>
+      <div class="h-wrap">
+        <h1 class="title"><a href="/" title="Back to Homepage">Emil Soman</a></h1>
+      </div>
+      <div class="icons-list">
+        <a href="#" class="js-menu-icon" title="Bio"><span class="icon-profile"></span></a>
+        <a href="http://github.com/emilsoman" title="Github"><span class="icon-github"></span></a>
+        <a href="http://twitter.com/emilsoman" title="Twitter"><span class="icon-twitter2"></span></a>
+        <a href="mailto:emil.soman@gmail.com" title= "Email"><span class="icon-mail"></span></a>
+        <a href="http://www.codemancers.com" title="Work"><span class="icon-briefcase"></span></a>
+        <a href="/atom.xml" title= "RSS Feed"><span class="icon-feed"></span></a>
+      </div>
+    </header>
+
+    <main>
+      <section id="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2013-02-08T13:58:00+05:30" itemprop="datePublished">
+          08 February 2013
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Semantic Versioning for code releases</h1>
+    <div itemprop="articleBody">
+      <p>Rake version got bumped to 10 straight from 0.9 recently. This is what the creator had to say about this:</p>
+
+<blockquote><p>Due to historical reasons (or maybe just plain laziness) Rake has (incorrectly) been treating the second digit of the version as the major release number. So in my head Rake was already at version 9.<br/>Well, it’s time to fix things. This next version of Rake drops old, crufty, backwards compatibility hacks such as top level constants, DSL methods defined in Object and numerous other features that are just no longer desired.<br/>It’s also time to drop the leading zero from the version number as well and call this new version of rake what it really is: Version 10.<br/>So, welcome to Rake 10.0!</p><footer><strong>Jim Weirich</strong> <cite><a href='http://rake.rubyforge.org/doc/release_notes/rake-10_0_0_rdoc.html'>Rake 10 Release Notes</a></cite></footer></blockquote>
+
+
+<p>If you're a developer, it's inevitable that you write API's that are consumed by others. It may be a RubyGem or a Rails app, or just a file that does something.
+It's also inevitable that you continuously improve your code or add features to it. Versioning let's your API consumers know what's going on from a really high level.
+You let them know whether they can just upgrade the code with your latest release or whether they should be concerned just by looking at the version.</p>
+
+<p>This is what a version should look like:</p>
+
+<p><code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code></p>
+
+<ul>
+<li><p>And these are the guidelines that determine which numbers should change in a release:</p>
+
+<ol>
+<li><em>Breaking backward compatibility bumps the major (and resets the minor and patch to 0)</em><br/>
+Users should be aware of the breaking changes. A changelog file will be nice to have.</li>
+<li><em>New additions without breaking backward compatibility bumps the minor (and resets the patch to 0)</em><br/>
+Users can upgrade without worrying and make use of the new features.</li>
+<li><em>Bug fixes and misc changes bumps the patch</em><br/>
+Users should probably take these changes in whenever available. It may prevent a lurking bug from coming out into their system.</li>
+</ol>
+</li>
+</ul>
+
+
+<p>Refer <a href="http://semver.org/">Semantic Versioning specs</a> for more info.</p>
+
+    </div>
+    <div id="share" class="feat">
+      <a href="http://twitter.com/share" class="popup">
+        <span class="icon-twitter"></span>
+      </a>
+    </div>
+    
+      <a rel="next" href="/blog/2013/03/05/push-local-master-to-a-different-remote-branch" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/blog/2013/02/06/git-remote-branches" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+    </main>
+
+    <footer>
+      <small>Theme:<a href="https://github.com/m3xm/hikari-for-Jekyll">hikari</a></small>
+      <small>&copy;Emil Soman</small>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36099649-1', 'www.emilsoman.com');
+        ga('send', 'pageview');
+      </script>
+    
+
+  </body>
+</html>
