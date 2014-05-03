@@ -17,3 +17,5 @@ pygments: true
 # Google Analytics
 ga_domain: www.emilsoman.com
 ga_tracking_id: UA-36099649-1
+
+exclude: [Gemfile, Gemfile.lock, README.md]
