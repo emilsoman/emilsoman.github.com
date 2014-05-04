@@ -62,48 +62,39 @@
 so you have a fresh directory with your POC code which has a local git repo.
 Now you are asked to push this code to a fresh branch on their remote repo.</p>
 
-<p>So this is what you have : a local master branch. This is what you want to achieve :</p>
+<p>So this is what you have : a local master branch. This is what you want to achieve : </p>
 
 <ol>
 <li>You want to <code>git pull</code> from remote/feature and merge on local/master</li>
 <li>You want to <code>git push</code> from local/master and push to remote/feature branch</li>
 </ol>
 
-
 <p>You want a clean remote branch called <code>feature</code> without any history.</p>
 
 <h4>Clone the remote repo in a different directory and create an orphan branch :</h4>
-
-<pre><code>git clone &lt;remote repo url&gt;
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git clone &lt;remote repo url&gt;
 git checkout --orphan feature
 git rm -rf .
-</code></pre>
-
+</code></pre></div>
 <h4>Push <code>feature</code> branch :</h4>
-
-<pre><code>echo "Feature branch" &gt; README.md
+<div class="highlight"><pre><code class="text language-text" data-lang="text">echo &quot;Feature branch&quot; &gt; README.md
 git add .
-git commit -a -m "Feature branch created"
+git commit -a -m &quot;Feature branch created&quot;
 git push origin feature
-</code></pre>
-
+</code></pre></div>
 <p>Now you have the <code>feature</code> branch in your remote which is an orphan.</p>
 
 <h4>Add remote in your local dev repo:</h4>
-
-<pre><code>git remote add origin &lt;remote repo url&gt;
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git remote add origin &lt;remote repo url&gt;
 git fetch
 git remote set-url --push origin &lt;remote repo url&gt;
 git config remote.origin.push refs/heads/master:feature
 git branch --set-upstream master origin/feature
-</code></pre>
-
+</code></pre></div>
 <h4>Done</h4>
-
-<pre><code>git pull
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git pull
 git push
-</code></pre>
-
+</code></pre></div>
     </div>
     <div id="share" class="feat">
       <a href="http://twitter.com/share" class="popup">

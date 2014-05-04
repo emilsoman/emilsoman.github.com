@@ -58,32 +58,26 @@
     </div>
     <h1 class="page-title" itemprop="name headline">Setting up a Vagrant VirtualBox</h1>
     <div itemprop="articleBody">
-      <p>For all the experimentation that I'll be doing for the next couple of weeks in my current project , I thought it'd be nice to have a virtual box set up.
-I'm choosing <a href="http://vagrantup.com/">Vagrant</a> for this.</p>
+      <p>For all the experimentation that I&#39;ll be doing for the next couple of weeks in my current project , I thought it&#39;d be nice to have a virtual box set up.
+I&#39;m choosing <a href="http://vagrantup.com/">Vagrant</a> for this.</p>
 
 <p>So this is what I did.</p>
 
-<p>Since I'm using Ubuntu 12.04 32-bit, I downloaded <a href="https://www.virtualbox.org/wiki/Linux_Downloads">that version</a> of Oracle VirtualBox - very straightforward.</p>
+<p>Since I&#39;m using Ubuntu 12.04 32-bit, I downloaded <a href="https://www.virtualbox.org/wiki/Linux_Downloads">that version</a> of Oracle VirtualBox - very straightforward.</p>
 
 <p>Then , installed Vagrant gem :</p>
-
-<pre><code>gem install vagrant
-</code></pre>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">gem install vagrant
+</code></pre></div>
 <p>Then I went to my project folder which I want to be shared with the VirtualBox and ran this :</p>
-
-<pre><code>vagrant init lucid32 http://files.vagrantup.com/lucid32.box
+<div class="highlight"><pre><code class="text language-text" data-lang="text">vagrant init lucid32 http://files.vagrantup.com/lucid32.box
 vagrant up
-</code></pre>
+</code></pre></div>
+<p>This downloads the lucid32 box from the URL. This takes a while. Once that&#39;s done , you can do :</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">vagrant ssh
+</code></pre></div>
+<p>And you&#39;re in the VirtualBox . Pretty neat !</p>
 
-<p>This downloads the lucid32 box from the URL. This takes a while. Once that's done , you can do :</p>
-
-<pre><code>vagrant ssh
-</code></pre>
-
-<p>And you're in the VirtualBox . Pretty neat !</p>
-
-<p><em><strong>Note</strong> : You need to do a little bit more than that to get a complete Rails development environment set up. Follow <a href="http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/">this excellent blog post</a>, to get there.</em></p>
+<p><em>**Note</em>* : You need to do a little bit more than that to get a complete Rails development environment set up. Follow <a href="http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/">this excellent blog post</a>, to get there.*</p>
 
     </div>
     <div id="share" class="feat">

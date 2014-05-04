@@ -4,7 +4,7 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-05-03T06:31:44+05:30</updated>
+  <updated>2014-05-04T15:43:09+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -16,12 +16,11 @@
       <summary type="html">&lt;h2&gt;Goals&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Use the leaner &lt;a href=&quot;https://github.com/rails-api/rails-api&quot;&gt;rails-api&lt;/a&gt;. This removes a lot of stuff Rails that you don&#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &quot;View&quot; layer that renders an HTML view for every request. This makes the response faster.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Use the leaner &lt;a href=&quot;https://github.com/rails-api/rails-api&quot;&gt;rails-api&lt;/a&gt;. This removes a lot of stuff Rails that you don&amp;#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &amp;quot;View&amp;quot; layer that renders an HTML view for every request. This makes the response faster.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Version API&#39;s as per best practices.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Version API&amp;#39;s as per best practices.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-
 
 &lt;h3&gt;rails-api&lt;/h3&gt;
 
@@ -29,19 +28,18 @@
 
 &lt;ol&gt;
 &lt;li&gt;Add &lt;code&gt;rails-api&lt;/code&gt; to the Gemfile and &lt;code&gt;bundle install&lt;/code&gt; .&lt;/li&gt;
-&lt;li&gt;ApplicationController should inherit from &lt;code&gt;ActionController::Api&lt;/code&gt; which doesn&#39;t include many modules that are not required for an API.&lt;/li&gt;
+&lt;li&gt;ApplicationController should inherit from &lt;code&gt;ActionController::Api&lt;/code&gt; which doesn&amp;#39;t include many modules that are not required for an API.&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;h3&gt;Cucumber for testing JSON API&amp;#39;s&lt;/h3&gt;
 
-&lt;h3&gt;Cucumber for testing JSON API&#39;s&lt;/h3&gt;
+&lt;p&gt;Cucumber is a Behavior driven development tool and by default it ships with &amp;quot;capybara&amp;quot; which simulates a user&amp;#39;s browser actions like filling up forms or clicking elements on the page. We need to change this behavior and simulate an external client that talks to the API directly using HTTP requests and understands JSON.&lt;/p&gt;
 
-&lt;p&gt;Cucumber is a Behavior driven development tool and by default it ships with &quot;capybara&quot; which simulates a user&#39;s browser actions like filling up forms or clicking elements on the page. We need to change this behavior and simulate an external client that talks to the API directly using HTTP requests and understands JSON.&lt;/p&gt;
+&lt;p&gt;Since authentication API&amp;#39;s accept username and password in HTTP BasicAuth headers, cucumber needs support for that as well. I found this nice little gem which helps here : &lt;a href=&quot;https://github.com/jayzes/cucumber-api-steps&quot;&gt;cucumber-api-steps&lt;/a&gt; . It helps you write steps in cucumber that simulate an external client talking to the API and supports HTTP BasicAuth.&lt;/p&gt;
 
-&lt;p&gt;Since authentication API&#39;s accept username and password in HTTP BasicAuth headers, cucumber needs support for that as well. I found this nice little gem which helps here : &lt;a href=&quot;https://github.com/jayzes/cucumber-api-steps&quot;&gt;cucumber-api-steps&lt;/a&gt; . It helps you write steps in cucumber that simulate an external client talking to the API and supports HTTP BasicAuth.&lt;/p&gt;
+&lt;p&gt;Now the problem comes while asserting the correctness of responses ( that&amp;#39;s the whole point of testing ). I found another gem that helps here : &lt;a href=&quot;https://github.com/collectiveidea/json_spec&quot;&gt;json_spec&lt;/a&gt; . It ships with cucumber steps that help you match the response to your expected response .&lt;/p&gt;
 
-&lt;p&gt;Now the problem comes while asserting the correctness of responses ( that&#39;s the whole point of testing ). I found another gem that helps here : &lt;a href=&quot;https://github.com/collectiveidea/json_spec&quot;&gt;json_spec&lt;/a&gt; . It ships with cucumber steps that help you match the response to your expected response .&lt;/p&gt;
-
-&lt;p&gt;The result is a well tested API whose test output serves as documentation for the API. Here&#39;s a sample test output :&lt;/p&gt;
+&lt;p&gt;The result is a well tested API whose test output serves as documentation for the API. Here&amp;#39;s a sample test output : &lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;ss&quot;&gt;Feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sign&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;In&lt;/span&gt;
 
@@ -60,13 +58,12 @@
       &lt;span class=&quot;no&quot;&gt;And&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;user_role&amp;quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;should&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h3&gt;Devise for authentication.&lt;/h3&gt;
 
-&lt;p&gt;This is where things get tricky. First of all, devise needs to work well with Rails 4. There&#39;s a &lt;code&gt;rails4&lt;/code&gt; branch in devise github repo which I specified in my Gemfile.&lt;/p&gt;
+&lt;p&gt;This is where things get tricky. First of all, devise needs to work well with Rails 4. There&amp;#39;s a &lt;code&gt;rails4&lt;/code&gt; branch in devise github repo which I specified in my Gemfile.&lt;/p&gt;
 
-&lt;p&gt;Devise doesn&#39;t work out of the box for a Rails app built on &lt;code&gt;rails-api&lt;/code&gt;. That&#39;s because devise requires MimeResponds module which is not included when we use &lt;code&gt;rails-api&lt;/code&gt;,
-also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quot; method on params. This won&#39;t work because ApplicationController inherits from ActionController::API
+&lt;p&gt;Devise doesn&amp;#39;t work out of the box for a Rails app built on &lt;code&gt;rails-api&lt;/code&gt;. That&amp;#39;s because devise requires MimeResponds module which is not included when we use &lt;code&gt;rails-api&lt;/code&gt;,
+also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit&amp;quot; method on params. This won&amp;#39;t work because ApplicationController inherits from ActionController::API
  when using &lt;code&gt;rails-api&lt;/code&gt; and does not include StrongParameters and params will be an instance of HashWithIndifferentAccess which does not have
  the &lt;code&gt;permit&lt;/code&gt; method. To solve these problems, add the following to &lt;code&gt;app/controllers/application_controller.rb&lt;/code&gt;&lt;/p&gt;
 
@@ -74,28 +71,24 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActionController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StrongParameters&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;p&gt;Also, devise has the default behavior of redirecting to different paths after authentication actions like sign_in or sign_up. Since we&#39;re buiding an API, which has no redirects, we should get around this. For this, I added my own &lt;code&gt;CustomDevise::SessionsController&lt;/code&gt; which inherits from &lt;code&gt;Devise::SessionsController&lt;/code&gt; to override the &lt;code&gt;create&lt;/code&gt; method so that it doesn&#39;t redirect on successful sign in. This is how the custom controller looks like :&lt;/p&gt;
+&lt;p&gt;Also, devise has the default behavior of redirecting to different paths after authentication actions like sign&lt;em&gt;in or sign&lt;/em&gt;up. Since we&amp;#39;re buiding an API, which has no redirects, we should get around this. For this, I added my own &lt;code&gt;CustomDevise::SessionsController&lt;/code&gt; which inherits from &lt;code&gt;Devise::SessionsController&lt;/code&gt; to override the &lt;code&gt;create&lt;/code&gt; method so that it doesn&amp;#39;t redirect on successful sign in. This is how the custom controller looks like :&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/emilsoman/5604222.js&quot;&gt;&lt;/script&gt;
-
 
 &lt;p&gt;This works for successful authentication. But if an authentication error occurs, the control goes to &lt;code&gt;warden&lt;/code&gt; which uses a &lt;code&gt;failure_app&lt;/code&gt; which is nothing but a Rack application which sets the flash messages and renders/redirects based on the requested format. I need a custom json response with an &lt;code&gt;errors&lt;/code&gt; key holding an array of errors instead of the default &lt;code&gt;error&lt;/code&gt; key. So I added a &lt;code&gt;custom_auth_failure_app.rb&lt;/code&gt; under &lt;code&gt;config/initializers&lt;/code&gt; with the following content :&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/emilsoman/5604254.js&quot;&gt;&lt;/script&gt;
 
-
-&lt;p&gt;Now we have to tell Devise to use the custom failure app by adding this to &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; :&lt;/p&gt;
+&lt;p&gt;Now we have to tell Devise to use the custom failure app by adding this to &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; : &lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warden&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;failure_app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CustomAuthFailure&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;h4&gt;Token based authentication&lt;/h4&gt;
 
-&lt;p&gt;Here&#39;s the plan for token based authentication:&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s the plan for token based authentication:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;Client signs in using email and password, which are sent with &lt;a href=&quot;http://en.wikipedia.org/wiki/Basic_access_authentication&quot;&gt;HTTP Basic Authentication headers&lt;/a&gt;&lt;/li&gt;
@@ -103,23 +96,20 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 &lt;li&gt;Client uses this authentication token for every subsequent request.&lt;/li&gt;
 &lt;/ol&gt;
 
-
 &lt;p&gt;In order to do this, we need to make a few changes.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Enable &quot;token_authenticatable&quot; in the devise model ( in our case, User model) and add the devise fields for token authentication in users table.&lt;/li&gt;
-&lt;li&gt;Set the following lines in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; :&lt;/li&gt;
+&lt;li&gt;Enable &amp;quot;token_authenticatable&amp;quot; in the devise model ( in our case, User model) and add the devise fields for token authentication in users table.&lt;/li&gt;
+&lt;li&gt;Set the following lines in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; : &lt;/li&gt;
 &lt;/ol&gt;
-
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http_authenticatable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip_session_storage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:http_auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:token_auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
 &lt;p&gt;This will enable http basic authentication in devise and prevent session storage for token authentication.&lt;/p&gt;
 
-&lt;p&gt;There&#39;s another problem that I ran into. Devise uses the method &lt;code&gt;warden.authenticate!&lt;/code&gt; to authenticate the user. This method by default tries to find a user from the Session. Since session is &quot;nil&quot; because &lt;code&gt;rails-api&lt;/code&gt; removed it, it&#39;s going to throw an exception. You can get around this by including session, but the purpose of using Rails-Api is to make the app leaner. &lt;code&gt;warden-1.2.1&lt;/code&gt; does not work with nil session. A few pull requests have gone into warden including one from me, that allows warden to be used without a session, and this has been released as &lt;code&gt;warden-1.2.2&lt;/code&gt;. In order to use this version of warden, add &lt;code&gt;gem &#39;warden&#39;, &#39;1.2.2&#39;&lt;/code&gt; before you add the devise gem in your Gemfile.&lt;/p&gt;
+&lt;p&gt;There&amp;#39;s another problem that I ran into. Devise uses the method &lt;code&gt;warden.authenticate!&lt;/code&gt; to authenticate the user. This method by default tries to find a user from the Session. Since session is &amp;quot;nil&amp;quot; because &lt;code&gt;rails-api&lt;/code&gt; removed it, it&amp;#39;s going to throw an exception. You can get around this by including session, but the purpose of using Rails-Api is to make the app leaner. &lt;code&gt;warden-1.2.1&lt;/code&gt; does not work with nil session. A few pull requests have gone into warden including one from me, that allows warden to be used without a session, and this has been released as &lt;code&gt;warden-1.2.2&lt;/code&gt;. In order to use this version of warden, add &lt;code&gt;gem &amp;#39;warden&amp;#39;, &amp;#39;1.2.2&amp;#39;&lt;/code&gt; before you add the devise gem in your Gemfile.&lt;/p&gt;
 
 &lt;p&gt;Now my cucumber scenarios for authentication are green. Phew !&lt;/p&gt;
 
@@ -130,11 +120,10 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 &lt;p&gt;So basically, you add the following to your routes :&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&quot;api&quot; namespace : so that your api URI&#39;s look like : &lt;code&gt;http://domain/api/method&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;scope with the version module : so that you can group your api version under a module, but the client doesn&#39;t need to add the version to the URI.&lt;/li&gt;
-&lt;li&gt;A constraint to the scope : so that a version can be specified in the &quot;Accept&quot; header as per best practices ( atleast GitHub does it this way ) and a default version can be used if the header is not present.&lt;/li&gt;
+&lt;li&gt;&amp;quot;api&amp;quot; namespace : so that your api URI&amp;#39;s look like : &lt;code&gt;http://domain/api/method&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;scope with the version module : so that you can group your api version under a module, but the client doesn&amp;#39;t need to add the version to the URI.&lt;/li&gt;
+&lt;li&gt;A constraint to the scope : so that a version can be specified in the &amp;quot;Accept&amp;quot; header as per best practices ( atleast GitHub does it this way ) and a default version can be used if the header is not present.&lt;/li&gt;
 &lt;/ol&gt;
-
 
 &lt;p&gt;So after versioning, you end up with the following directory structure for controllers, specs and features : &lt;code&gt;/api/&amp;lt;version&amp;gt;/&lt;/code&gt; , which helps you to maintain the versions separately.&lt;/p&gt;
 
@@ -142,11 +131,10 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 
 &lt;ol&gt;
 &lt;li&gt;Leaner and supposedly faster Rails 4 app using rails-api&lt;/li&gt;
-&lt;li&gt;Tests using cucumber + step definitions for JSON API&#39;s&lt;/li&gt;
+&lt;li&gt;Tests using cucumber + step definitions for JSON API&amp;#39;s&lt;/li&gt;
 &lt;li&gt;Documentation from cucumber output&lt;/li&gt;
-&lt;li&gt;Authentication using devise + warden &gt;= 1.2.2&lt;/li&gt;
+&lt;li&gt;Authentication using devise + warden &amp;gt;= 1.2.2&lt;/li&gt;
 &lt;/ol&gt;
-
 </summary>
       <id>http://www.emilsoman.com/blog/2013/05/18/building-a-tested</id>
       <updated>2013-05-18T18:47:00+05:30</updated>
@@ -158,29 +146,28 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
     <entry>
       <title>Confessions of a Vim maniac</title>
       <link href="http://www.emilsoman.com/blog/2013/04/11/confessions-of-a-vim-maniac" />
-      <summary type="html">&lt;p&gt;Though I&#39;d like to think I&#39;m very liberal when it comes to accepting change, I know I&#39;m ridiculously super conservative when it comes to one thing - text editors.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Though I&amp;#39;d like to think I&amp;#39;m very liberal when it comes to accepting change, I know I&amp;#39;m ridiculously super conservative when it comes to one thing - text editors.&lt;/p&gt;
 
-&lt;p&gt;Ever since I started programming for a living, every character of the code that I&#39;ve written which eventually got compiled or interpreted and got shipped into far away servers which loaded it into their memory, and got executed millions of times by those CPU&#39;s had a humble and delicate origin when I pressed the right keys in the right order in my dearest editor - the Vim editor. After these many years of using Vim without stopping for a moment to think about our journey together, I&#39;m going to do it now.&lt;/p&gt;
+&lt;p&gt;Ever since I started programming for a living, every character of the code that I&amp;#39;ve written which eventually got compiled or interpreted and got shipped into far away servers which loaded it into their memory, and got executed millions of times by those CPU&amp;#39;s had a humble and delicate origin when I pressed the right keys in the right order in my dearest editor - the Vim editor. After these many years of using Vim without stopping for a moment to think about our journey together, I&amp;#39;m going to do it now.&lt;/p&gt;
 
-&lt;p&gt;You must have heard this story before : the kid who just moved into the city enters the new class, he&#39;s made to sit beside the weirdest looking kid in the class. The new kid doesn&#39;t really like this weird kid because he&#39;s mysterious and different and so difficult to hold a conversation with. Eventually the new kid tries to understand this weirdo and he is shocked to find how friendly the weird looking kid really is and their friendship grows so tight that they are inseparable. That&#39;s how I can summarize my journey with Vim so far.&lt;/p&gt;
+&lt;p&gt;You must have heard this story before : the kid who just moved into the city enters the new class, he&amp;#39;s made to sit beside the weirdest looking kid in the class. The new kid doesn&amp;#39;t really like this weird kid because he&amp;#39;s mysterious and different and so difficult to hold a conversation with. Eventually the new kid tries to understand this weirdo and he is shocked to find how friendly the weird looking kid really is and their friendship grows so tight that they are inseparable. That&amp;#39;s how I can summarize my journey with Vim so far.&lt;/p&gt;
 
-&lt;p&gt;Unlike many who complain about the bad learning curve, I didn&#39;t feel Vim was difficult because when i started off, the only thing I wanted to do was write stuff, move cursor, save and quit. I was not impressed by the promised productivity boost that Vim would give me.  I was skeptical about the choice all the while I was using Vim in the beginning. The journey towards a happy union with my editor had to cross many a milestone.&lt;/p&gt;
+&lt;p&gt;Unlike many who complain about the bad learning curve, I didn&amp;#39;t feel Vim was difficult because when i started off, the only thing I wanted to do was write stuff, move cursor, save and quit. I was not impressed by the promised productivity boost that Vim would give me.  I was skeptical about the choice all the while I was using Vim in the beginning. The journey towards a happy union with my editor had to cross many a milestone.&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;When I Pair programmed with a senior developer/vim superuser - A lot of &quot;Wait! What did you just do&quot; taught me some Vim sorcery .&lt;/li&gt;
+&lt;li&gt;When I Pair programmed with a senior developer/vim superuser - A lot of &amp;quot;Wait! What did you just do&amp;quot; taught me some Vim sorcery .&lt;/li&gt;
 &lt;li&gt;When I had to code over an SSH connection - Vim wins here.&lt;/li&gt;
 &lt;li&gt;When I installed eclipse IDE on my really slow workstation - Eclipse died.&lt;/li&gt;
 &lt;li&gt;When I started exploring advanced Vim commands and wrote my custom .vimrc - Impressed by productivity boost.&lt;/li&gt;
 &lt;/ol&gt;
 
-
-&lt;p&gt;The reason why Vim makes you more productive is because of this fact : The only way to do something in Vim is using the keyboard. That means you are already using a keyboard shortcut for &lt;em&gt;everything&lt;/em&gt;. So you may tell me &quot;But all IDE&#39;s have shortcuts&quot;. Yes, but since none of the IDE&#39;s forced me to learn the shortcuts, I simply failed to learn them, and moreover whenever I tried running an IDE, it ran really slow so I removed it and never looked back.&lt;/p&gt;
+&lt;p&gt;The reason why Vim makes you more productive is because of this fact : The only way to do something in Vim is using the keyboard. That means you are already using a keyboard shortcut for &lt;em&gt;everything&lt;/em&gt;. So you may tell me &amp;quot;But all IDE&amp;#39;s have shortcuts&amp;quot;. Yes, but since none of the IDE&amp;#39;s forced me to learn the shortcuts, I simply failed to learn them, and moreover whenever I tried running an IDE, it ran really slow so I removed it and never looked back.&lt;/p&gt;
 
 &lt;p&gt;Enter Sublime Text.&lt;/p&gt;
 
-&lt;p&gt;I tried SublimeText when it was released, and this is what I thought : &quot;This editor is slick !&quot; . Everytime I see somebody using it, I say the same thing to myself again &quot;This editor is slick !&quot;. But thanks to my blind loyalty to Vim, I couldn&#39;t think of replacing Vim with Sublime Text.&lt;/p&gt;
+&lt;p&gt;I tried SublimeText when it was released, and this is what I thought : &amp;quot;This editor is slick !&amp;quot; . Everytime I see somebody using it, I say the same thing to myself again &amp;quot;This editor is slick !&amp;quot;. But thanks to my blind loyalty to Vim, I couldn&amp;#39;t think of replacing Vim with Sublime Text. &lt;/p&gt;
 
-&lt;p&gt;But yesterday, I tried it again, and I decided I&#39;m going to learn this editor.&lt;/p&gt;
+&lt;p&gt;But yesterday, I tried it again, and I decided I&amp;#39;m going to learn this editor. &lt;/p&gt;
 
 &lt;p&gt;Because Sublime Text&lt;/p&gt;
 
@@ -192,8 +179,7 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 &lt;li&gt;is actively under development&lt;/li&gt;
 &lt;/ol&gt;
 
-
-&lt;p&gt;So I&#39;m going to start using Sublime Text and I&#39;m going to learn the keyboard shortcuts first. I hope I can do a rundown on the experience later.&lt;/p&gt;
+&lt;p&gt;So I&amp;#39;m going to start using Sublime Text and I&amp;#39;m going to learn the keyboard shortcuts first. I hope I can do a rundown on the experience later.&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2013/04/11/confessions-of-a-vim-maniac</id>
       <updated>2013-04-11T20:41:00+05:30</updated>
@@ -209,48 +195,39 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &quot;permit&quo
 so you have a fresh directory with your POC code which has a local git repo.
 Now you are asked to push this code to a fresh branch on their remote repo.&lt;/p&gt;
 
-&lt;p&gt;So this is what you have : a local master branch. This is what you want to achieve :&lt;/p&gt;
+&lt;p&gt;So this is what you have : a local master branch. This is what you want to achieve : &lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;You want to &lt;code&gt;git pull&lt;/code&gt; from remote/feature and merge on local/master&lt;/li&gt;
 &lt;li&gt;You want to &lt;code&gt;git push&lt;/code&gt; from local/master and push to remote/feature branch&lt;/li&gt;
 &lt;/ol&gt;
 
-
 &lt;p&gt;You want a clean remote branch called &lt;code&gt;feature&lt;/code&gt; without any history.&lt;/p&gt;
 
 &lt;h4&gt;Clone the remote repo in a different directory and create an orphan branch :&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git clone &amp;lt;remote repo url&amp;gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git clone &amp;lt;remote repo url&amp;gt;
 git checkout --orphan feature
 git rm -rf .
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Push &lt;code&gt;feature&lt;/code&gt; branch :&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;echo &quot;Feature branch&quot; &amp;gt; README.md
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;quot;Feature branch&amp;quot; &amp;gt; README.md
 git add .
-git commit -a -m &quot;Feature branch created&quot;
+git commit -a -m &amp;quot;Feature branch created&amp;quot;
 git push origin feature
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Now you have the &lt;code&gt;feature&lt;/code&gt; branch in your remote which is an orphan.&lt;/p&gt;
 
 &lt;h4&gt;Add remote in your local dev repo:&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git remote add origin &amp;lt;remote repo url&amp;gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remote add origin &amp;lt;remote repo url&amp;gt;
 git fetch
 git remote set-url --push origin &amp;lt;remote repo url&amp;gt;
 git config remote.origin.push refs/heads/master:feature
 git branch --set-upstream master origin/feature
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Done&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git pull
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git pull
 git push
-&lt;/code&gt;&lt;/pre&gt;
-</summary>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
       <id>http://www.emilsoman.com/blog/2013/03/05/push-local-master-to-a-different-remote-branch</id>
       <updated>2013-03-05T19:58:00+05:30</updated>
       <author>
@@ -265,9 +242,8 @@ git push
 
 &lt;blockquote&gt;&lt;p&gt;Due to historical reasons (or maybe just plain laziness) Rake has (incorrectly) been treating the second digit of the version as the major release number. So in my head Rake was already at version 9.&lt;br/&gt;Well, it’s time to fix things. This next version of Rake drops old, crufty, backwards compatibility hacks such as top level constants, DSL methods defined in Object and numerous other features that are just no longer desired.&lt;br/&gt;It’s also time to drop the leading zero from the version number as well and call this new version of rake what it really is: Version 10.&lt;br/&gt;So, welcome to Rake 10.0!&lt;/p&gt;&lt;footer&gt;&lt;strong&gt;Jim Weirich&lt;/strong&gt; &lt;cite&gt;&lt;a href=&#39;http://rake.rubyforge.org/doc/release_notes/rake-10_0_0_rdoc.html&#39;&gt;Rake 10 Release Notes&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;&lt;/blockquote&gt;
 
-
-&lt;p&gt;If you&#39;re a developer, it&#39;s inevitable that you write API&#39;s that are consumed by others. It may be a RubyGem or a Rails app, or just a file that does something.
-It&#39;s also inevitable that you continuously improve your code or add features to it. Versioning let&#39;s your API consumers know what&#39;s going on from a really high level.
+&lt;p&gt;If you&amp;#39;re a developer, it&amp;#39;s inevitable that you write API&amp;#39;s that are consumed by others. It may be a RubyGem or a Rails app, or just a file that does something.
+It&amp;#39;s also inevitable that you continuously improve your code or add features to it. Versioning let&amp;#39;s your API consumers know what&amp;#39;s going on from a really high level.
 You let them know whether they can just upgrade the code with your latest release or whether they should be concerned just by looking at the version.&lt;/p&gt;
 
 &lt;p&gt;This is what a version should look like:&lt;/p&gt;
@@ -275,19 +251,17 @@ You let them know whether they can just upgrade the code with your latest releas
 &lt;p&gt;&lt;code&gt;&amp;lt;major&amp;gt;.&amp;lt;minor&amp;gt;.&amp;lt;patch&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;And these are the guidelines that determine which numbers should change in a release:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;em&gt;Breaking backward compatibility bumps the major (and resets the minor and patch to 0)&lt;/em&gt;&lt;br/&gt;
-Users should be aware of the breaking changes. A changelog file will be nice to have.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;New additions without breaking backward compatibility bumps the minor (and resets the patch to 0)&lt;/em&gt;&lt;br/&gt;
-Users can upgrade without worrying and make use of the new features.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;Bug fixes and misc changes bumps the patch&lt;/em&gt;&lt;br/&gt;
-Users should probably take these changes in whenever available. It may prevent a lurking bug from coming out into their system.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
+&lt;li&gt;And these are the guidelines that determine which numbers should change in a release:&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Breaking backward compatibility bumps the major (and resets the minor and patch to 0)&lt;/em&gt;&lt;br&gt;
+Users should be aware of the breaking changes. A changelog file will be nice to have.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;New additions without breaking backward compatibility bumps the minor (and resets the patch to 0)&lt;/em&gt;&lt;br&gt;
+Users can upgrade without worrying and make use of the new features.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Bug fixes and misc changes bumps the patch&lt;/em&gt;&lt;br&gt;
+Users should probably take these changes in whenever available. It may prevent a lurking bug from coming out into their system.&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;Refer &lt;a href=&quot;http://semver.org/&quot;&gt;Semantic Versioning specs&lt;/a&gt; for more info.&lt;/p&gt;
 </summary>
@@ -304,30 +278,22 @@ Users should probably take these changes in whenever available. It may prevent a
       <summary type="html">&lt;p&gt;To avoid forgetting and depending on random links from google again :&lt;/p&gt;
 
 &lt;h4&gt;Push a local branch called &lt;code&gt;new_branch&lt;/code&gt; to a remote branch :&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git push -u origin new_branch
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git push -u origin new_branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;To checkout a branch &lt;code&gt;new_branch&lt;/code&gt; from remote &lt;code&gt;origin/new_branch&lt;/code&gt;:&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git checkout -b new_branch origin/new_branch
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git checkout -b new_branch origin/new_branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Or:
     git checkout --track origin/new_branch&lt;/p&gt;
 
 &lt;h4&gt;To delete a remote branch &lt;code&gt;serverfix&lt;/code&gt;:&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git push origin :serverfix
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git push origin :serverfix
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;To delete all stale(already deleted in remote) branches :&lt;/h4&gt;
-
-&lt;pre&gt;&lt;code&gt;git remote prune origin
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remote prune origin
 #add --dry-run to see a list of branches that will be pruned without actually doing it.
 git branch -d branch_to_be_deleted
-&lt;/code&gt;&lt;/pre&gt;
-</summary>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
       <id>http://www.emilsoman.com/blog/2013/02/06/git-remote-branches</id>
       <updated>2013-02-06T17:16:00+05:30</updated>
       <author>
@@ -341,9 +307,9 @@ git branch -d branch_to_be_deleted
       <summary type="html">&lt;p&gt;Years ago, my boss who was also a good mentor suggested that I get myself introduced to Design Patterns.
 So I went ahead and read this big catalog of design patterns - patterns which were reusable solutions for common problems in software design - problems I had not faced yet.&lt;/p&gt;
 
-&lt;p&gt;I thought I should fit in patterns to almost everything. I used to think I should do some sort of &#39;Pattern Driven Development&#39; where everything starts from the identification of the obscure pattern. It goes without saying, I met with a lot of coding horrors. Except a few times when the patterns gelled beautifully in, I was not able to pick the right patterns for all my design problems and I slowly started losing faith in them as I gained more experience and started subconciously identifying problems and using my own solutions that have worked for me to solve those problems.&lt;/p&gt;
+&lt;p&gt;I thought I should fit in patterns to almost everything. I used to think I should do some sort of &amp;#39;Pattern Driven Development&amp;#39; where everything starts from the identification of the obscure pattern. It goes without saying, I met with a lot of coding horrors. Except a few times when the patterns gelled beautifully in, I was not able to pick the right patterns for all my design problems and I slowly started losing faith in them as I gained more experience and started subconciously identifying problems and using my own solutions that have worked for me to solve those problems.&lt;/p&gt;
 
-&lt;p&gt;But now after many years of doing it the hard way , I think I know why everything had to happen like this. Design patterns is a waste of time if you don&#39;t understand the problems of not having good designs in software. After many years of working with piles of unfathomable mangles of code gifted by long gone deveopers, I think it&#39;s right time to start over with Design Patterns. I&#39;m picking up the Gang of Four book again.&lt;/p&gt;
+&lt;p&gt;But now after many years of doing it the hard way , I think I know why everything had to happen like this. Design patterns is a waste of time if you don&amp;#39;t understand the problems of not having good designs in software. After many years of working with piles of unfathomable mangles of code gifted by long gone deveopers, I think it&amp;#39;s right time to start over with Design Patterns. I&amp;#39;m picking up the Gang of Four book again.&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2013/01/21/start-over-with-design-patterns</id>
       <updated>2013-01-21T15:15:00+05:30</updated>
@@ -355,7 +321,7 @@ So I went ahead and read this big catalog of design patterns - patterns which we
     <entry>
       <title>Add a CLI to your gems with Thor</title>
       <link href="http://www.emilsoman.com/blog/2012/12/17/add-a-cli-to-your-gems-with-thor" />
-      <summary type="html">&lt;p&gt;I&#39;m writing this ruby gem &lt;a href=&quot;https://github.com/emilsoman/homer&quot;&gt;homer&lt;/a&gt; which is basically a command line
+      <summary type="html">&lt;p&gt;I&amp;#39;m writing this ruby gem &lt;a href=&quot;https://github.com/emilsoman/homer&quot;&gt;homer&lt;/a&gt; which is basically a command line
 tool which helps you to manage your dotfiles. When writing a CLI tool, all those repetitive tasks try to
 drag you down : options parsing, help text, default options, shortnames for options etc.&lt;/p&gt;
 
@@ -366,12 +332,11 @@ drag you down : options parsing, help text, default options, shortnames for opti
 &lt;ul&gt;
 &lt;li&gt;Added a &lt;code&gt;bin/homer&lt;/code&gt; file in my homer gem.&lt;/li&gt;
 &lt;li&gt;Included the ruby shebang line :
-    #!/usr/bin/env ruby&lt;/li&gt;
-&lt;li&gt;Required &quot;thor&quot;
-    require &#39;thor&#39;&lt;/li&gt;
+  #!/usr/bin/env ruby&lt;/li&gt;
+&lt;li&gt;Required &amp;quot;thor&amp;quot;
+  require &amp;#39;thor&amp;#39;&lt;/li&gt;
 &lt;li&gt;Defined the Thor class&lt;/li&gt;
 &lt;/ul&gt;
-
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HomerRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thor&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;init&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Unleashes homer to feed on your dotfiles&amp;quot;&lt;/span&gt;
@@ -383,8 +348,7 @@ drag you down : options parsing, help text, default options, shortnames for opti
   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-
-&lt;p&gt;That&#39;s really it! &lt;code&gt;bin/homer&lt;/code&gt; will be an executable when the homer gem is installed and I can run &lt;code&gt;homer init&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;That&amp;#39;s really it! &lt;code&gt;bin/homer&lt;/code&gt; will be an executable when the homer gem is installed and I can run &lt;code&gt;homer init&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Now homer is one gem which will support a few subcommands and I want a help command to help confused users. Guess
 what, thor took care of that already. &lt;code&gt;homer --help&lt;/code&gt; is at your disposal. How about making &lt;code&gt;help&lt;/code&gt; the default task?
@@ -396,9 +360,6 @@ Simple.&lt;/p&gt;
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
     
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
 </summary>
       <id>http://www.emilsoman.com/blog/2012/12/17/add-a-cli-to-your-gems-with-thor</id>
       <updated>2012-12-17T12:22:00+05:30</updated>
@@ -410,51 +371,42 @@ Simple.&lt;/p&gt;
     <entry>
       <title>Roll Your Own Gems with Jeweler</title>
       <link href="http://www.emilsoman.com/blog/2012/11/07/roll-your-own-gems-with-jeweler" />
-      <summary type="html">&lt;p&gt;I use &lt;a href=&quot;http://github.com/technicalpickles/jeweler&quot;&gt;jeweler&lt;/a&gt; for my gems. The use of gems
-like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining
+      <summary type="html">&lt;p&gt;I use &lt;a href=&quot;http://github.com/technicalpickles/jeweler&quot;&gt;jeweler&lt;/a&gt; for my gems. The use of gems 
+like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining 
 gems with jeweler.&lt;/p&gt;
 
-&lt;p&gt;Here&#39;s a simple demo .&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s a simple demo .&lt;/p&gt;
 
 &lt;p&gt;First install jeweler :
     gem install jeweler&lt;/p&gt;
 
-&lt;p&gt;It&#39;s very important to print &quot;Hello World&quot; in many projects. So we&#39;ll make a gem for that.&lt;/p&gt;
+&lt;p&gt;It&amp;#39;s very important to print &amp;quot;Hello World&amp;quot; in many projects. So we&amp;#39;ll make a gem for that.&lt;/p&gt;
 
-&lt;p&gt;First, you&#39;ll have to create a repo on GitHub with the gem name, here, &#39;hello_world&#39;. Once that&#39;s done,
-we&#39;ll use jeweler to create a skeleton of the gem.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This will create the gem directory &lt;code&gt;hello_world&lt;/code&gt; where your gem lives. You can also see that
+&lt;p&gt;First, you&amp;#39;ll have to create a repo on GitHub with the gem name, here, &amp;#39;hello_world&amp;#39;. Once that&amp;#39;s done, 
+we&amp;#39;ll use jeweler to create a skeleton of the gem.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will create the gem directory &lt;code&gt;hello_world&lt;/code&gt; where your gem lives. You can also see that 
 the directory is now a git repo and the code has been pushed to GitHub.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git remove -v
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remove -v
 origingit@github.com:emilsoman/contractor.git (fetch)
 origingit@githubithub.com:emilsoman/contractor.git (push)
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;--github-token any&lt;em&gt;random&lt;/em&gt;string&lt;/strong&gt; is not used anymore, but jeweler still requires it as a mandatory option. This is a &lt;a href=&quot;https://github.com/technicalpickles/jeweler/issues/230&quot;&gt;bug in jeweler&lt;/a&gt;. So we&amp;#39;ll just provide some random string there.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;--github-token any_random_string&lt;/strong&gt; is not used anymore, but jeweler still requires it as a mandatory option. This is a &lt;a href=&quot;https://github.com/technicalpickles/jeweler/issues/230&quot;&gt;bug in jeweler&lt;/a&gt;. So we&#39;ll just provide some random string there.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; I&#39;ve fixed this issue in &lt;a href=&quot;https://github.com/emilsoman/jeweler&quot;&gt;my fork of jeweler&lt;/a&gt;. You do not
+&lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; I&amp;#39;ve fixed this issue in &lt;a href=&quot;https://github.com/emilsoman/jeweler&quot;&gt;my fork of jeweler&lt;/a&gt;. You do not
 have to provide the random github token if you use this fix.&lt;/p&gt;
 
 &lt;p&gt;Next step is to add some details to the gem. Open up Rakefile where jeweler keeps the details that would be placed later in hello_world.gemspec. Add a &lt;code&gt;summary&lt;/code&gt; and &lt;code&gt;description&lt;/code&gt; for the gem.&lt;/p&gt;
 
-&lt;p&gt;Open up Gemfile, remove the spermy operator for rspec and bundler, we can use the latest versions.&lt;/p&gt;
-
+&lt;p&gt;Open up Gemfile, remove the spermy operator for rspec and bundler, we can use the latest versions.
 &lt;script src=&quot;https://gist.github.com/4033896.js?file=Gemfile.diff&quot;&gt; &lt;/script&gt;
-
-
-&lt;p&gt;Also , I&#39;m not using rcov, so I&#39;m removing that gem from the Gemfile.
+Also , I&amp;#39;m not using rcov, so I&amp;#39;m removing that gem from the Gemfile. 
 Run &lt;code&gt;bundle install&lt;/code&gt; to resolve dependencies.&lt;/p&gt;
 
-&lt;p&gt;Now we&#39;re ready to write the gem. Notice the &lt;code&gt;lib/hello_world.rb&lt;/code&gt; file ? That&#39;s the file that
-gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;require &#39;hello_world&#39;&lt;/code&gt;. So that&#39;s where we&#39;ll put this code :&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/4033896.js?file=hello_world.rb&quot;&gt; &lt;/script&gt;
-
+&lt;p&gt;Now we&amp;#39;re ready to write the gem. Notice the &lt;code&gt;lib/hello_world.rb&lt;/code&gt; file ? That&amp;#39;s the file that 
+gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;require &amp;#39;hello_world&amp;#39;&lt;/code&gt;. So that&amp;#39;s where we&amp;#39;ll put this code :
+&lt;script src=&quot;https://gist.github.com/4033896.js?file=hello_world.rb&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;Now stage the changes. Write a version file, and release the gem. You need an account with RubyGems.org to release the gem there.
     git add .
@@ -473,7 +425,6 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 &lt;li&gt;Run &lt;code&gt;rake release&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-
 &lt;p&gt;By the way , jeweler can do a few more things than that. Run &lt;code&gt;rake -T&lt;/code&gt; inside the gem directory to see everything jeweler can do.&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/07/roll-your-own-gems-with-jeweler</id>
@@ -486,23 +437,21 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
     <entry>
       <title>MultiEnvironment chef-clients with Vagrant</title>
       <link href="http://www.emilsoman.com/blog/2012/11/07/multienvironment-chef-clients-with-vagrant" />
-      <summary type="html">&lt;p&gt;I&#39;m doing a lot of things with Chef in my current project, and I was looking for a way to test the client-server architecture of Chef . I could get hold of a couple of unused machines from the IT guys , but that isn&#39;t such a cool thing to do.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;I&amp;#39;m doing a lot of things with Chef in my current project, and I was looking for a way to test the client-server architecture of Chef . I could get hold of a couple of unused machines from the IT guys , but that isn&amp;#39;t such a cool thing to do.&lt;/p&gt;
 
-&lt;p&gt;How about this - multiple environments in my own development machine, which I can screw up to my heart&#39;s content , erase everything and restart my test as many times as I want in a flash ? That would be sweet !&lt;/p&gt;
+&lt;p&gt;How about this - multiple environments in my own development machine, which I can screw up to my heart&amp;#39;s content , erase everything and restart my test as many times as I want in a flash ? That would be sweet !&lt;/p&gt;
 
-&lt;p&gt;Say hello to Vagrant . I have Vagrant set up in my machine , and you should have it too . If you haven&#39;t done that already , &lt;a href=&quot;/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/&quot;&gt;this post&lt;/a&gt; will help you do just that.&lt;/p&gt;
+&lt;p&gt;Say hello to Vagrant . I have Vagrant set up in my machine , and you should have it too . If you haven&amp;#39;t done that already , &lt;a href=&quot;/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/&quot;&gt;this post&lt;/a&gt; will help you do just that.&lt;/p&gt;
 
-&lt;p&gt;Enough chit chat , let&#39;s figure out the multi-environment thingy .&lt;/p&gt;
+&lt;p&gt;Enough chit chat , let&amp;#39;s figure out the multi-environment thingy .&lt;/p&gt;
 
 &lt;p&gt;I want two independent virtualmachines, one running lucid32 another running precise32 , just for the demo. I’m going to use these as my chef-clients to test out Chef.&lt;/p&gt;
 
 &lt;p&gt;I destroyed my existing VM by running :
     vagrant destroy&lt;/p&gt;
 
-&lt;p&gt;Modified my Vagrantfile to look like this:&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/4030169.js?file=Vagrantfile&quot;&gt; &lt;/script&gt;
-
+&lt;p&gt;Modified my Vagrantfile to look like this:
+&lt;script src=&quot;https://gist.github.com/4030169.js?file=Vagrantfile&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;lucid32 machine is &lt;em&gt;node1&lt;/em&gt; and precise32 is &lt;em&gt;node2&lt;/em&gt;&lt;/p&gt;
 
@@ -516,7 +465,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
     vagrant ssh node2
     vagrant@precise32:~$&lt;/p&gt;
 
-&lt;p&gt;Follow &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;my post on setting up Chef-Client&lt;/a&gt; to set up chef-client on the machines and we&#39;re done !&lt;/p&gt;
+&lt;p&gt;Follow &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;my post on setting up Chef-Client&lt;/a&gt; to set up chef-client on the machines and we&amp;#39;re done !&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/07/multienvironment-chef-clients-with-vagrant</id>
       <updated>2012-11-07T13:55:00+05:30</updated>
@@ -528,12 +477,12 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
     <entry>
       <title>Chef Resources</title>
       <link href="http://www.emilsoman.com/blog/2012/11/06/chef-resources" />
-      <summary type="html">&lt;p&gt;Here&#39;s a list of all the Resources that Chef can work with :&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Here&amp;#39;s a list of all the Resources that Chef can work with :&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;Cookbook File&lt;/strong&gt; - Transfers files in &lt;code&gt;files/&lt;/code&gt; directory of a cookbook to the node&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Cron&lt;/strong&gt; - Manages cron entries&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Deploy&lt;/strong&gt; - Deploys your app, talks to the project&#39;s source control&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deploy&lt;/strong&gt; - Deploys your app, talks to the project&amp;#39;s source control&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Directory&lt;/strong&gt; - Manages a directory&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Env&lt;/strong&gt; - This is for windows to set the environment&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Erlang Call&lt;/strong&gt; - Connects to a distributed erlang node and makes a call&lt;/li&gt;
@@ -547,7 +496,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 &lt;li&gt;&lt;strong&gt;Log&lt;/strong&gt; - Adds log entries from your recipes&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Mdadm&lt;/strong&gt; - Manage &lt;a href=&quot;http://en.wikipedia.org/wiki/Mdadm&quot;&gt;mdadm&lt;/a&gt; software RAID devices&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Mount&lt;/strong&gt; - Manage a mounted filesystem&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ohai&lt;/strong&gt; - Reload node&#39;s ohai configuration. Recipes can use it to reload the configs after touching any of those.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ohai&lt;/strong&gt; - Reload node&amp;#39;s ohai configuration. Recipes can use it to reload the configs after touching any of those.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Package&lt;/strong&gt; - Install a package (&lt;em&gt;gem_package - to install gems&lt;/em&gt; )&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;PowerShell Script&lt;/strong&gt; - Executes a script using the PowerShell interpreter&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Remote Directory&lt;/strong&gt; - Recursively transfers directories from &lt;code&gt;files/default&lt;/code&gt; directory of cookbook to the node&lt;/li&gt;
@@ -562,8 +511,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 &lt;li&gt;&lt;strong&gt;User&lt;/strong&gt; - Manage local users&lt;/li&gt;
 &lt;/ol&gt;
 
-
-&lt;p&gt;For examples and detailed documentation , here&#39;s the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Resources&quot;&gt;official doc&lt;/a&gt; .
+&lt;p&gt;For examples and detailed documentation , here&amp;#39;s the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Resources&quot;&gt;official doc&lt;/a&gt; .
 Now you know what resources to use when writing your own recipes !&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/06/chef-resources</id>
@@ -576,8 +524,8 @@ Now you know what resources to use when writing your own recipes !&lt;/p&gt;
     <entry>
       <title>Setting up Chef Client</title>
       <link href="http://www.emilsoman.com/blog/2012/11/06/setting-up-chef-client" />
-      <summary type="html">&lt;p&gt;We&#39;ve set up a chef server in the &lt;a href=&quot;/blog/2012/11/05/hello/&quot;&gt;previous post&lt;/a&gt;. That was on the host.
-&lt;em&gt;Remember , we&#39;re planning to host the client on a Vagrant virtualbox and the server on the development box&lt;/em&gt;&lt;/p&gt;
+      <summary type="html">&lt;p&gt;We&amp;#39;ve set up a chef server in the &lt;a href=&quot;/blog/2012/11/05/hello/&quot;&gt;previous post&lt;/a&gt;. That was on the host.
+&lt;em&gt;Remember , we&amp;#39;re planning to host the client on a Vagrant virtualbox and the server on the development box&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;We need an &lt;code&gt;/etc/chef&lt;/code&gt; directory to store the configurations for the client. We put &lt;code&gt;client.rb&lt;/code&gt; and &lt;code&gt;validation.pem&lt;/code&gt; in there :&lt;/p&gt;
 
@@ -586,37 +534,35 @@ Now you know what resources to use when writing your own recipes !&lt;/p&gt;
 
 &lt;p&gt;To create the client.rb and validation.pem , you can do one of the two steps :&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
-&lt;p&gt;  1) With Workstation
+&lt;p&gt;1) With Workstation
   &lt;script src=&quot;https://gist.github.com/4023622.js?file=workstation.sh&quot;&gt; &lt;/script&gt;
   Now scp the client.rb and validation.pem files generated at the current working directory of the node.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
-&lt;p&gt;  2) Without Workstation&lt;/p&gt;
+&lt;p&gt;2) Without Workstation&lt;/p&gt;
 
-&lt;p&gt;Create a barebone &lt;code&gt;/etc/chef/client.rb&lt;/code&gt; directly on the client :&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/4023622.js?file=client.rb&quot;&gt; &lt;/script&gt;
-
+&lt;p&gt;Create a barebone &lt;code&gt;/etc/chef/client.rb&lt;/code&gt; directly on the client :
+&lt;script src=&quot;https://gist.github.com/4023622.js?file=client.rb&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;At a minimum client.rb must contain the configuration settings necessary for chef-client to communicate with the chef-server.&lt;/p&gt;
 
 &lt;p&gt;Also, download the &lt;code&gt;validation.pem&lt;/code&gt; file from chef-server to &lt;code&gt;/etc/chef/&lt;/code&gt; on the node&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
 &lt;p&gt;On the node , run :
     sudo chef-client -i 3600
 This will register the node with the server , and create &lt;code&gt;client.pem&lt;/code&gt; key in &lt;code&gt;/etc/chef/&lt;/code&gt; directory in the node.
 And starts the chef-client which will poll the chef-server every 3600 seconds for changes.&lt;/p&gt;
 
-&lt;p&gt;On the server, run :
+&lt;p&gt;On the server, run : 
     knife node list
 This should list your newly added client. If it does , congratulations! Your chef client is up and running .&lt;/p&gt;
 
-&lt;p&gt;Here&#39;s &lt;a href=&quot;http://ceph.com/docs/master/install/chef/&quot;&gt;another document&lt;/a&gt; that&#39;s helpful in getting chef server and client set up.&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s &lt;a href=&quot;http://ceph.com/docs/master/install/chef/&quot;&gt;another document&lt;/a&gt; that&amp;#39;s helpful in getting chef server and client set up.&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/06/setting-up-chef-client</id>
       <updated>2012-11-06T10:38:00+05:30</updated>
@@ -628,53 +574,42 @@ This should list your newly added client. If it does , congratulations! Your che
     <entry>
       <title>Hello Chef!</title>
       <link href="http://www.emilsoman.com/blog/2012/11/05/hello" />
-      <summary type="html">&lt;p&gt;I&#39;m new to Chef. In fact the only time I was good at SysAdmin tasks was when I was 12 years old and I had a Windows 98 running on a Pentium 90 Mhz at my disposal.
-There was no internet - so no StackOverflow or Google. It was all self service.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;I&amp;#39;m new to Chef. In fact the only time I was good at SysAdmin tasks was when I was 12 years old and I had a Windows 98 running on a Pentium 90 Mhz at my disposal.
+There was no internet - so no StackOverflow or Google. It was all self service. &lt;/p&gt;
 
 &lt;p&gt;Yes those were beautiful days, trying to figure out everything on my own, the sleepless nights spent tuning the hesitant old machine to run impossible things.
-But that doesn&#39;t mean I&#39;m happy to spend sleepless nights at office trying to figure out dependency issues in packages when I&#39;m a Ruby developer.
-There got to be better ways of doing this. Let&#39;s look at Chef.&lt;/p&gt;
+But that doesn&amp;#39;t mean I&amp;#39;m happy to spend sleepless nights at office trying to figure out dependency issues in packages when I&amp;#39;m a Ruby developer.
+There got to be better ways of doing this. Let&amp;#39;s look at Chef.&lt;/p&gt;
 
-&lt;p&gt;I have a &lt;a href=&quot;/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/&quot;&gt;Vagrant virtual box setup on my machine&lt;/a&gt;.
-I&#39;m thinking I&#39;ll use that as a Chef Client.
-I&#39;ll use my host machine as the Chef Server.&lt;/p&gt;
+&lt;p&gt;I have a &lt;a href=&quot;/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/&quot;&gt;Vagrant virtual box setup on my machine&lt;/a&gt;. 
+I&amp;#39;m thinking I&amp;#39;ll use that as a Chef Client.
+I&amp;#39;ll use my host machine as the Chef Server.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;I&#39;m following the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Installing+Chef+Server+using+Chef+Solo&quot;&gt;OpsCode docs&lt;/a&gt; for this one&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I&amp;#39;m following the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Installing+Chef+Server+using+Chef+Solo&quot;&gt;OpsCode docs&lt;/a&gt; for this one&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;In my host, I run this :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
 sudo gem install --no-rdoc --no-ri chef
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This installs the chef-solo which I&#39;ll use to bootstrap chef-server. As it turned out, &lt;strong&gt;sudo&lt;/strong&gt; was important.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This installs the chef-solo which I&amp;#39;ll use to bootstrap chef-server. As it turned out, &lt;strong&gt;sudo&lt;/strong&gt; was important.&lt;/p&gt;
 
 &lt;p&gt;Next, create &lt;code&gt;/etc/chef&lt;/code&gt; to store configurations for chef solo runs.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo mkdir /etc/chef/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Create &lt;code&gt;/etc/chef/solo.rb&lt;/code&gt; configuration file as below :&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/4017288.js?file=solo.rb&quot;&gt; &lt;/script&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo mkdir /etc/chef/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Create &lt;code&gt;/etc/chef/solo.rb&lt;/code&gt; configuration file as below :
+&lt;script src=&quot;https://gist.github.com/4017288.js?file=solo.rb&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;We also need a JSON file which will tell chef-solo to pick a certain list of recipes to run and specific attributes to configure on the system
-Create &lt;code&gt;~/chef.json&lt;/code&gt; configuration file as below :&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/4017288.js?file=chef.json&quot;&gt; &lt;/script&gt;
-
+Create &lt;code&gt;~/chef.json&lt;/code&gt; configuration file as below :
+&lt;script src=&quot;https://gist.github.com/4017288.js?file=chef.json&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;Run the following to bootstrap chef-server :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This installs chef-server , chef-solr , chef-server-webui and all the dependencies .&lt;/p&gt;
 
 &lt;p&gt;Run this to start the cef server:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
 sudo ln -s /usr/local/bin/chef-expander /usr/bin/chef-expander
 sudo ln -s /usr/local/bin/chef-server /usr/bin/chef-server
 sudo ln -s /usr/local/bin/chef-client /usr/bin/chef-client
@@ -682,40 +617,35 @@ sudo ln -s /usr/local/bin/chef-solo /usr/bin/chef-solo
 sudo /etc/init.d/chef-solr start
 sudo /etc/init.d/chef-expander start
 sudo /etc/init.d/chef-server start
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Chef-Server is running now. That wasn&amp;#39;t so hard.&lt;/p&gt;
 
-&lt;p&gt;Chef-Server is running now. That wasn&#39;t so hard.&lt;/p&gt;
-
-&lt;p&gt;Now we&#39;ll create &lt;code&gt;~/.chef&lt;/code&gt; directory to hold the configurations for the server. We&#39;ll move the keys generated by the server to this directory and set permissions for the current user&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir -p ~/.chef
+&lt;p&gt;Now we&amp;#39;ll create &lt;code&gt;~/.chef&lt;/code&gt; directory to hold the configurations for the server. We&amp;#39;ll move the keys generated by the server to this directory and set permissions for the current user&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mkdir -p ~/.chef
 sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ~/.chef
 sudo chown -R $USER ~/.chef
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The next step is to configure the &lt;code&gt;knife&lt;/code&gt; command line tool. Let&#39;s do that :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;knife configure -i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The next step is to configure the &lt;code&gt;knife&lt;/code&gt; command line tool. Let&amp;#39;s do that :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;knife configure -i
 WARNING: No knife configuration file found
 Where should I put the config file? [/home/emil/.chef/knife.rb] 
 Please enter the chef server URL: [http://emil-desktop:4000] http://l.m.x.y:4000
 Please enter a clientname for the new client: [emil] 
 Please enter the existing admin clientname: [chef-webui] 
-Please enter the location of the existing admin client&#39;s private key: [/etc/chef/webui.pem] .chef/webui.pem
+Please enter the location of the existing admin client&amp;#39;s private key: [/etc/chef/webui.pem] .chef/webui.pem
 Please enter the validation clientname: [chef-validator] 
 Please enter the location of the validation key: [/etc/chef/validation.pem] .chef/validation.pem
 Please enter the path to a chef repository (or leave blank): 
 Creating initial API user...
 Created client[emil]
 Configuration file written to /home/emil/.chef/knife.rb
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Running &lt;code&gt;knife client list&lt;/code&gt; should show your username in the list .&lt;/p&gt;
 
-&lt;p&gt;Now as per the manual , there are a few things you have to do, if you&#39;re planning to work on the cookbooks from a different development machine (eg. Your laptop).
-I&#39;m skipping these steps for now.&lt;/p&gt;
+&lt;p&gt;Now as per the manual , there are a few things you have to do, if you&amp;#39;re planning to work on the cookbooks from a different development machine (eg. Your laptop).
+I&amp;#39;m skipping these steps for now.&lt;/p&gt;
 
-&lt;p&gt;So that&#39;s it , chef-server is done! We&#39;ll configure the chef-client in the &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;next post&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So that&amp;#39;s it , chef-server is done! We&amp;#39;ll configure the chef-client in the &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;next post&lt;/a&gt;.&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/05/hello</id>
       <updated>2012-11-05T17:41:00+05:30</updated>
@@ -727,32 +657,26 @@ I&#39;m skipping these steps for now.&lt;/p&gt;
     <entry>
       <title>Setting up a Vagrant VirtualBox</title>
       <link href="http://www.emilsoman.com/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails" />
-      <summary type="html">&lt;p&gt;For all the experimentation that I&#39;ll be doing for the next couple of weeks in my current project , I thought it&#39;d be nice to have a virtual box set up.
-I&#39;m choosing &lt;a href=&quot;http://vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt; for this.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;For all the experimentation that I&amp;#39;ll be doing for the next couple of weeks in my current project , I thought it&amp;#39;d be nice to have a virtual box set up.
+I&amp;#39;m choosing &lt;a href=&quot;http://vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt; for this.&lt;/p&gt;
 
 &lt;p&gt;So this is what I did.&lt;/p&gt;
 
-&lt;p&gt;Since I&#39;m using Ubuntu 12.04 32-bit, I downloaded &lt;a href=&quot;https://www.virtualbox.org/wiki/Linux_Downloads&quot;&gt;that version&lt;/a&gt; of Oracle VirtualBox - very straightforward.&lt;/p&gt;
+&lt;p&gt;Since I&amp;#39;m using Ubuntu 12.04 32-bit, I downloaded &lt;a href=&quot;https://www.virtualbox.org/wiki/Linux_Downloads&quot;&gt;that version&lt;/a&gt; of Oracle VirtualBox - very straightforward.&lt;/p&gt;
 
 &lt;p&gt;Then , installed Vagrant gem :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install vagrant
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;gem install vagrant
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then I went to my project folder which I want to be shared with the VirtualBox and ran this :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant init lucid32 http://files.vagrantup.com/lucid32.box
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;vagrant init lucid32 http://files.vagrantup.com/lucid32.box
 vagrant up
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This downloads the lucid32 box from the URL. This takes a while. Once that&amp;#39;s done , you can do :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;vagrant ssh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And you&amp;#39;re in the VirtualBox . Pretty neat !&lt;/p&gt;
 
-&lt;p&gt;This downloads the lucid32 box from the URL. This takes a while. Once that&#39;s done , you can do :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant ssh
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And you&#39;re in the VirtualBox . Pretty neat !&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Note&lt;/strong&gt; : You need to do a little bit more than that to get a complete Rails development environment set up. Follow &lt;a href=&quot;http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/&quot;&gt;this excellent blog post&lt;/a&gt;, to get there.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;**Note&lt;/em&gt;* : You need to do a little bit more than that to get a complete Rails development environment set up. Follow &lt;a href=&quot;http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/&quot;&gt;this excellent blog post&lt;/a&gt;, to get there.*&lt;/p&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails</id>
       <updated>2012-11-05T17:04:00+05:30</updated>

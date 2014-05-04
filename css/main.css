@@ -43,7 +43,6 @@ ul li { list-style-type: circle; }
 ol li { list-style-type: decimal; }
 a         { color: #000; }
 a:hover   { color: #444; }
-/*a:visited { color: #31f; }*/
 
 
 /*****************************************************************************/
@@ -57,7 +56,7 @@ a:hover   { color: #444; }
 
 header {
   width: 100%;
-  background: rgb(250, 250, 250);
+  background: #303030;
 }
 
 header .h-wrap {
@@ -76,35 +75,33 @@ header .h-wrap h1.title {
 
 header .h-wrap h1.title a {
   font-weight: 400;
-  color: Black;
+  color: White;
   text-decoration: none;
 }
 
-/*
-header .h-wrap h1.title a:hover {
-  color: #39f;
-}
-*/
-
 header .icons-list {
   padding-bottom: 30px;
-  color: black;
   font-size: 150%;
   text-align: center;
   letter-spacing: 10px;
 }
 
-header .icons-list a { color: #000; text-decoration: none; }
+header .icons-list a {
+  color: White;
+  text-decoration: none;
+}
+
+header .icons-list a:hover { color: Yellow }
 
 /* Off-canvas */
 
 #off-canvas {
+  font-family: 'Alfa Slab One', cursive;
   position: relative;
   max-height: 0;
   overflow: hidden;
   padding: 0px 40px;
-  background: #fafafa;
-  border-bottom: 0px solid #f1f1f1;
+  background: #fff;
   -webkit-transition: max-height .35s ease, 
                       padding-top .35s ease, 
                       padding-bottom .35s ease, 
@@ -141,7 +138,6 @@ header .icons-list a { color: #000; text-decoration: none; }
 }
 
 #off-canvas #bio p {
-  font-family: 'Lora', serif;
   line-height: 160%;
   font-size: 100%;
   margin-bottom: 0;
@@ -228,11 +224,13 @@ footer small {
 
 
 ul.posts { color: #fff; overflow: hidden; }
-ul.posts li { border-bottom: 1px solid #000; display: inline-block; width: 100%; }
-ul.posts li:last-child { border-bottom: none; }
-ul.posts li .p-wrap { background: #fff; padding: 50px 40px; transition: all .15s ease-in; }
-ul.posts li .p-wrap:hover { background: #F1F1F1;}
+
+ul.posts li:nth-child(odd)  { border-left: 10px solid #4ECDC4; }
+ul.posts li:nth-child(even) { border-left: 10px solid #C7F464; }
+ul.posts li .p-wrap { padding: 50px 40px; transition: all .15s ease-in; }
+ul.posts li .p-wrap:hover { background: #F8FF69;}
 ul.posts li .p-wrap:active { background: #444; color: #fff}
+
 ul.posts li .p-wrap:hover::after { content:'\2192'; margin-left: 10px; }
 ul.posts li .p-wrap p { display: inline; margin-bottom: 0; }
 ul.posts li .date { padding-right: 20px; }

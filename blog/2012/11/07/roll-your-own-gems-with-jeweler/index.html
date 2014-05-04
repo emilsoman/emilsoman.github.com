@@ -58,51 +58,42 @@
     </div>
     <h1 class="page-title" itemprop="name headline">Roll Your Own Gems with Jeweler</h1>
     <div itemprop="articleBody">
-      <p>I use <a href="http://github.com/technicalpickles/jeweler">jeweler</a> for my gems. The use of gems
-like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining
+      <p>I use <a href="http://github.com/technicalpickles/jeweler">jeweler</a> for my gems. The use of gems 
+like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining 
 gems with jeweler.</p>
 
-<p>Here's a simple demo .</p>
+<p>Here&#39;s a simple demo .</p>
 
 <p>First install jeweler :
     gem install jeweler</p>
 
-<p>It's very important to print "Hello World" in many projects. So we'll make a gem for that.</p>
+<p>It&#39;s very important to print &quot;Hello World&quot; in many projects. So we&#39;ll make a gem for that.</p>
 
-<p>First, you'll have to create a repo on GitHub with the gem name, here, 'hello_world'. Once that's done,
-we'll use jeweler to create a skeleton of the gem.</p>
-
-<pre><code>jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
-</code></pre>
-
-<p>This will create the gem directory <code>hello_world</code> where your gem lives. You can also see that
+<p>First, you&#39;ll have to create a repo on GitHub with the gem name, here, &#39;hello_world&#39;. Once that&#39;s done, 
+we&#39;ll use jeweler to create a skeleton of the gem.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
+</code></pre></div>
+<p>This will create the gem directory <code>hello_world</code> where your gem lives. You can also see that 
 the directory is now a git repo and the code has been pushed to GitHub.</p>
-
-<pre><code>git remove -v
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git remove -v
 origingit@github.com:emilsoman/contractor.git (fetch)
 origingit@githubithub.com:emilsoman/contractor.git (push)
-</code></pre>
+</code></pre></div>
+<p><em><strong>--github-token any<em>random</em>string</strong> is not used anymore, but jeweler still requires it as a mandatory option. This is a <a href="https://github.com/technicalpickles/jeweler/issues/230">bug in jeweler</a>. So we&#39;ll just provide some random string there.</em></p>
 
-<p><em><strong>--github-token any_random_string</strong> is not used anymore, but jeweler still requires it as a mandatory option. This is a <a href="https://github.com/technicalpickles/jeweler/issues/230">bug in jeweler</a>. So we'll just provide some random string there.</em></p>
-
-<p><strong>UPDATE:</strong> I've fixed this issue in <a href="https://github.com/emilsoman/jeweler">my fork of jeweler</a>. You do not
+<p><strong>UPDATE:</strong> I&#39;ve fixed this issue in <a href="https://github.com/emilsoman/jeweler">my fork of jeweler</a>. You do not
 have to provide the random github token if you use this fix.</p>
 
 <p>Next step is to add some details to the gem. Open up Rakefile where jeweler keeps the details that would be placed later in hello_world.gemspec. Add a <code>summary</code> and <code>description</code> for the gem.</p>
 
-<p>Open up Gemfile, remove the spermy operator for rspec and bundler, we can use the latest versions.</p>
-
+<p>Open up Gemfile, remove the spermy operator for rspec and bundler, we can use the latest versions.
 <script src="https://gist.github.com/4033896.js?file=Gemfile.diff"> </script>
-
-
-<p>Also , I'm not using rcov, so I'm removing that gem from the Gemfile.
+Also , I&#39;m not using rcov, so I&#39;m removing that gem from the Gemfile. 
 Run <code>bundle install</code> to resolve dependencies.</p>
 
-<p>Now we're ready to write the gem. Notice the <code>lib/hello_world.rb</code> file ? That's the file that
-gets <em>required</em> when you require the gem using <code>require 'hello_world'</code>. So that's where we'll put this code :</p>
-
-<script src="https://gist.github.com/4033896.js?file=hello_world.rb"> </script>
-
+<p>Now we&#39;re ready to write the gem. Notice the <code>lib/hello_world.rb</code> file ? That&#39;s the file that 
+gets <em>required</em> when you require the gem using <code>require &#39;hello_world&#39;</code>. So that&#39;s where we&#39;ll put this code :
+<script src="https://gist.github.com/4033896.js?file=hello_world.rb"> </script></p>
 
 <p>Now stage the changes. Write a version file, and release the gem. You need an account with RubyGems.org to release the gem there.
     git add .
@@ -120,7 +111,6 @@ gets <em>required</em> when you require the gem using <code>require 'hello_world
 <li>Before release, review changes and version</li>
 <li>Run <code>rake release</code></li>
 </ol>
-
 
 <p>By the way , jeweler can do a few more things than that. Run <code>rake -T</code> inside the gem directory to see everything jeweler can do.</p>
 

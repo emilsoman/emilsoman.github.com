@@ -58,53 +58,42 @@
     </div>
     <h1 class="page-title" itemprop="name headline">Hello Chef!</h1>
     <div itemprop="articleBody">
-      <p>I'm new to Chef. In fact the only time I was good at SysAdmin tasks was when I was 12 years old and I had a Windows 98 running on a Pentium 90 Mhz at my disposal.
-There was no internet - so no StackOverflow or Google. It was all self service.</p>
+      <p>I&#39;m new to Chef. In fact the only time I was good at SysAdmin tasks was when I was 12 years old and I had a Windows 98 running on a Pentium 90 Mhz at my disposal.
+There was no internet - so no StackOverflow or Google. It was all self service. </p>
 
 <p>Yes those were beautiful days, trying to figure out everything on my own, the sleepless nights spent tuning the hesitant old machine to run impossible things.
-But that doesn't mean I'm happy to spend sleepless nights at office trying to figure out dependency issues in packages when I'm a Ruby developer.
-There got to be better ways of doing this. Let's look at Chef.</p>
+But that doesn&#39;t mean I&#39;m happy to spend sleepless nights at office trying to figure out dependency issues in packages when I&#39;m a Ruby developer.
+There got to be better ways of doing this. Let&#39;s look at Chef.</p>
 
-<p>I have a <a href="/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/">Vagrant virtual box setup on my machine</a>.
-I'm thinking I'll use that as a Chef Client.
-I'll use my host machine as the Chef Server.</p>
+<p>I have a <a href="/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails/">Vagrant virtual box setup on my machine</a>. 
+I&#39;m thinking I&#39;ll use that as a Chef Client.
+I&#39;ll use my host machine as the Chef Server.</p>
 
-<p><em>I'm following the <a href="http://wiki.opscode.com/display/chef/Installing+Chef+Server+using+Chef+Solo">OpsCode docs</a> for this one</em></p>
+<p><em>I&#39;m following the <a href="http://wiki.opscode.com/display/chef/Installing+Chef+Server+using+Chef+Solo">OpsCode docs</a> for this one</em></p>
 
 <p>In my host, I run this :</p>
-
-<pre><code>sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
 sudo gem install --no-rdoc --no-ri chef
-</code></pre>
-
-<p>This installs the chef-solo which I'll use to bootstrap chef-server. As it turned out, <strong>sudo</strong> was important.</p>
+</code></pre></div>
+<p>This installs the chef-solo which I&#39;ll use to bootstrap chef-server. As it turned out, <strong>sudo</strong> was important.</p>
 
 <p>Next, create <code>/etc/chef</code> to store configurations for chef solo runs.</p>
-
-<pre><code>sudo mkdir /etc/chef/
-</code></pre>
-
-<p>Create <code>/etc/chef/solo.rb</code> configuration file as below :</p>
-
-<script src="https://gist.github.com/4017288.js?file=solo.rb"> </script>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo mkdir /etc/chef/
+</code></pre></div>
+<p>Create <code>/etc/chef/solo.rb</code> configuration file as below :
+<script src="https://gist.github.com/4017288.js?file=solo.rb"> </script></p>
 
 <p>We also need a JSON file which will tell chef-solo to pick a certain list of recipes to run and specific attributes to configure on the system
-Create <code>~/chef.json</code> configuration file as below :</p>
-
-<script src="https://gist.github.com/4017288.js?file=chef.json"> </script>
-
+Create <code>~/chef.json</code> configuration file as below :
+<script src="https://gist.github.com/4017288.js?file=chef.json"> </script></p>
 
 <p>Run the following to bootstrap chef-server :</p>
-
-<pre><code>sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
-</code></pre>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
+</code></pre></div>
 <p>This installs chef-server , chef-solr , chef-server-webui and all the dependencies .</p>
 
 <p>Run this to start the cef server:</p>
-
-<pre><code>sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
+<div class="highlight"><pre><code class="text language-text" data-lang="text">sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
 sudo ln -s /usr/local/bin/chef-expander /usr/bin/chef-expander
 sudo ln -s /usr/local/bin/chef-server /usr/bin/chef-server
 sudo ln -s /usr/local/bin/chef-client /usr/bin/chef-client
@@ -112,40 +101,35 @@ sudo ln -s /usr/local/bin/chef-solo /usr/bin/chef-solo
 sudo /etc/init.d/chef-solr start
 sudo /etc/init.d/chef-expander start
 sudo /etc/init.d/chef-server start
-</code></pre>
+</code></pre></div>
+<p>Chef-Server is running now. That wasn&#39;t so hard.</p>
 
-<p>Chef-Server is running now. That wasn't so hard.</p>
-
-<p>Now we'll create <code>~/.chef</code> directory to hold the configurations for the server. We'll move the keys generated by the server to this directory and set permissions for the current user</p>
-
-<pre><code>mkdir -p ~/.chef
+<p>Now we&#39;ll create <code>~/.chef</code> directory to hold the configurations for the server. We&#39;ll move the keys generated by the server to this directory and set permissions for the current user</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">mkdir -p ~/.chef
 sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ~/.chef
 sudo chown -R $USER ~/.chef
-</code></pre>
-
-<p>The next step is to configure the <code>knife</code> command line tool. Let's do that :</p>
-
-<pre><code>knife configure -i
+</code></pre></div>
+<p>The next step is to configure the <code>knife</code> command line tool. Let&#39;s do that :</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">knife configure -i
 WARNING: No knife configuration file found
 Where should I put the config file? [/home/emil/.chef/knife.rb] 
 Please enter the chef server URL: [http://emil-desktop:4000] http://l.m.x.y:4000
 Please enter a clientname for the new client: [emil] 
 Please enter the existing admin clientname: [chef-webui] 
-Please enter the location of the existing admin client's private key: [/etc/chef/webui.pem] .chef/webui.pem
+Please enter the location of the existing admin client&#39;s private key: [/etc/chef/webui.pem] .chef/webui.pem
 Please enter the validation clientname: [chef-validator] 
 Please enter the location of the validation key: [/etc/chef/validation.pem] .chef/validation.pem
 Please enter the path to a chef repository (or leave blank): 
 Creating initial API user...
 Created client[emil]
 Configuration file written to /home/emil/.chef/knife.rb
-</code></pre>
-
+</code></pre></div>
 <p>Running <code>knife client list</code> should show your username in the list .</p>
 
-<p>Now as per the manual , there are a few things you have to do, if you're planning to work on the cookbooks from a different development machine (eg. Your laptop).
-I'm skipping these steps for now.</p>
+<p>Now as per the manual , there are a few things you have to do, if you&#39;re planning to work on the cookbooks from a different development machine (eg. Your laptop).
+I&#39;m skipping these steps for now.</p>
 
-<p>So that's it , chef-server is done! We'll configure the chef-client in the <a href="/blog/2012/11/06/setting-up-chef-client/">next post</a>.</p>
+<p>So that&#39;s it , chef-server is done! We&#39;ll configure the chef-client in the <a href="/blog/2012/11/06/setting-up-chef-client/">next post</a>.</p>
 
     </div>
     <div id="share" class="feat">

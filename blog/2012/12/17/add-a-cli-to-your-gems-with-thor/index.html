@@ -58,7 +58,7 @@
     </div>
     <h1 class="page-title" itemprop="name headline">Add a CLI to your gems with Thor</h1>
     <div itemprop="articleBody">
-      <p>I'm writing this ruby gem <a href="https://github.com/emilsoman/homer">homer</a> which is basically a command line
+      <p>I&#39;m writing this ruby gem <a href="https://github.com/emilsoman/homer">homer</a> which is basically a command line
 tool which helps you to manage your dotfiles. When writing a CLI tool, all those repetitive tasks try to
 drag you down : options parsing, help text, default options, shortnames for options etc.</p>
 
@@ -69,12 +69,11 @@ drag you down : options parsing, help text, default options, shortnames for opti
 <ul>
 <li>Added a <code>bin/homer</code> file in my homer gem.</li>
 <li>Included the ruby shebang line :
-    #!/usr/bin/env ruby</li>
-<li>Required "thor"
-    require 'thor'</li>
+  #!/usr/bin/env ruby</li>
+<li>Required &quot;thor&quot;
+  require &#39;thor&#39;</li>
 <li>Defined the Thor class</li>
 </ul>
-
 
 <div class="highlight"><pre><code class="ruby">  <span class="k">class</span> <span class="nc">HomerRunner</span> <span class="o">&lt;</span> <span class="no">Thor</span>
     <span class="n">desc</span> <span class="s2">&quot;init&quot;</span><span class="p">,</span> <span class="s2">&quot;Unleashes homer to feed on your dotfiles&quot;</span>
@@ -86,8 +85,7 @@ drag you down : options parsing, help text, default options, shortnames for opti
   
 </code></pre></div>
 
-
-<p>That's really it! <code>bin/homer</code> will be an executable when the homer gem is installed and I can run <code>homer init</code>.</p>
+<p>That&#39;s really it! <code>bin/homer</code> will be an executable when the homer gem is installed and I can run <code>homer init</code>.</p>
 
 <p>Now homer is one gem which will support a few subcommands and I want a help command to help confused users. Guess
 what, thor took care of that already. <code>homer --help</code> is at your disposal. How about making <code>help</code> the default task?
@@ -99,9 +97,6 @@ Simple.</p>
     <span class="k">end</span>
     
 </code></pre></div>
-
-
-
 
     </div>
     <div id="share" class="feat">

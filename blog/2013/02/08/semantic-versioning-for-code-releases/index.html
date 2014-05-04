@@ -62,9 +62,8 @@
 
 <blockquote><p>Due to historical reasons (or maybe just plain laziness) Rake has (incorrectly) been treating the second digit of the version as the major release number. So in my head Rake was already at version 9.<br/>Well, it’s time to fix things. This next version of Rake drops old, crufty, backwards compatibility hacks such as top level constants, DSL methods defined in Object and numerous other features that are just no longer desired.<br/>It’s also time to drop the leading zero from the version number as well and call this new version of rake what it really is: Version 10.<br/>So, welcome to Rake 10.0!</p><footer><strong>Jim Weirich</strong> <cite><a href='http://rake.rubyforge.org/doc/release_notes/rake-10_0_0_rdoc.html'>Rake 10 Release Notes</a></cite></footer></blockquote>
 
-
-<p>If you're a developer, it's inevitable that you write API's that are consumed by others. It may be a RubyGem or a Rails app, or just a file that does something.
-It's also inevitable that you continuously improve your code or add features to it. Versioning let's your API consumers know what's going on from a really high level.
+<p>If you&#39;re a developer, it&#39;s inevitable that you write API&#39;s that are consumed by others. It may be a RubyGem or a Rails app, or just a file that does something.
+It&#39;s also inevitable that you continuously improve your code or add features to it. Versioning let&#39;s your API consumers know what&#39;s going on from a really high level.
 You let them know whether they can just upgrade the code with your latest release or whether they should be concerned just by looking at the version.</p>
 
 <p>This is what a version should look like:</p>
@@ -72,19 +71,17 @@ You let them know whether they can just upgrade the code with your latest releas
 <p><code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;</code></p>
 
 <ul>
-<li><p>And these are the guidelines that determine which numbers should change in a release:</p>
-
-<ol>
-<li><em>Breaking backward compatibility bumps the major (and resets the minor and patch to 0)</em><br/>
-Users should be aware of the breaking changes. A changelog file will be nice to have.</li>
-<li><em>New additions without breaking backward compatibility bumps the minor (and resets the patch to 0)</em><br/>
-Users can upgrade without worrying and make use of the new features.</li>
-<li><em>Bug fixes and misc changes bumps the patch</em><br/>
-Users should probably take these changes in whenever available. It may prevent a lurking bug from coming out into their system.</li>
-</ol>
-</li>
+<li>And these are the guidelines that determine which numbers should change in a release:</li>
 </ul>
 
+<ol>
+<li><em>Breaking backward compatibility bumps the major (and resets the minor and patch to 0)</em><br>
+Users should be aware of the breaking changes. A changelog file will be nice to have.</li>
+<li><em>New additions without breaking backward compatibility bumps the minor (and resets the patch to 0)</em><br>
+Users can upgrade without worrying and make use of the new features.</li>
+<li><em>Bug fixes and misc changes bumps the patch</em><br>
+Users should probably take these changes in whenever available. It may prevent a lurking bug from coming out into their system.</li>
+</ol>
 
 <p>Refer <a href="http://semver.org/">Semantic Versioning specs</a> for more info.</p>
 

@@ -61,30 +61,22 @@
       <p>To avoid forgetting and depending on random links from google again :</p>
 
 <h4>Push a local branch called <code>new_branch</code> to a remote branch :</h4>
-
-<pre><code>git push -u origin new_branch
-</code></pre>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git push -u origin new_branch
+</code></pre></div>
 <h4>To checkout a branch <code>new_branch</code> from remote <code>origin/new_branch</code>:</h4>
-
-<pre><code>git checkout -b new_branch origin/new_branch
-</code></pre>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git checkout -b new_branch origin/new_branch
+</code></pre></div>
 <p>Or:
     git checkout --track origin/new_branch</p>
 
 <h4>To delete a remote branch <code>serverfix</code>:</h4>
-
-<pre><code>git push origin :serverfix
-</code></pre>
-
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git push origin :serverfix
+</code></pre></div>
 <h4>To delete all stale(already deleted in remote) branches :</h4>
-
-<pre><code>git remote prune origin
+<div class="highlight"><pre><code class="text language-text" data-lang="text">git remote prune origin
 #add --dry-run to see a list of branches that will be pruned without actually doing it.
 git branch -d branch_to_be_deleted
-</code></pre>
-
+</code></pre></div>
     </div>
     <div id="share" class="feat">
       <a href="http://twitter.com/share" class="popup">

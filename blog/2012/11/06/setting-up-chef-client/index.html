@@ -58,8 +58,8 @@
     </div>
     <h1 class="page-title" itemprop="name headline">Setting up Chef Client</h1>
     <div itemprop="articleBody">
-      <p>We've set up a chef server in the <a href="/blog/2012/11/05/hello/">previous post</a>. That was on the host.
-<em>Remember , we're planning to host the client on a Vagrant virtualbox and the server on the development box</em></p>
+      <p>We&#39;ve set up a chef server in the <a href="/blog/2012/11/05/hello/">previous post</a>. That was on the host.
+<em>Remember , we&#39;re planning to host the client on a Vagrant virtualbox and the server on the development box</em></p>
 
 <p>We need an <code>/etc/chef</code> directory to store the configurations for the client. We put <code>client.rb</code> and <code>validation.pem</code> in there :</p>
 
@@ -68,37 +68,35 @@
 
 <p>To create the client.rb and validation.pem , you can do one of the two steps :</p>
 
-<hr />
+<hr>
 
-<p>  1) With Workstation
+<p>1) With Workstation
   <script src="https://gist.github.com/4023622.js?file=workstation.sh"> </script>
   Now scp the client.rb and validation.pem files generated at the current working directory of the node.</p>
 
-<hr />
+<hr>
 
-<p>  2) Without Workstation</p>
+<p>2) Without Workstation</p>
 
-<p>Create a barebone <code>/etc/chef/client.rb</code> directly on the client :</p>
-
-<script src="https://gist.github.com/4023622.js?file=client.rb"> </script>
-
+<p>Create a barebone <code>/etc/chef/client.rb</code> directly on the client :
+<script src="https://gist.github.com/4023622.js?file=client.rb"> </script></p>
 
 <p>At a minimum client.rb must contain the configuration settings necessary for chef-client to communicate with the chef-server.</p>
 
 <p>Also, download the <code>validation.pem</code> file from chef-server to <code>/etc/chef/</code> on the node</p>
 
-<hr />
+<hr>
 
 <p>On the node , run :
     sudo chef-client -i 3600
 This will register the node with the server , and create <code>client.pem</code> key in <code>/etc/chef/</code> directory in the node.
 And starts the chef-client which will poll the chef-server every 3600 seconds for changes.</p>
 
-<p>On the server, run :
+<p>On the server, run : 
     knife node list
 This should list your newly added client. If it does , congratulations! Your chef client is up and running .</p>
 
-<p>Here's <a href="http://ceph.com/docs/master/install/chef/">another document</a> that's helpful in getting chef server and client set up.</p>
+<p>Here&#39;s <a href="http://ceph.com/docs/master/install/chef/">another document</a> that&#39;s helpful in getting chef server and client set up.</p>
 
     </div>
     <div id="share" class="feat">
