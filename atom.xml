@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Emil Soman</title>
-  <id>http://www.emilsoman.com</id>
-  <link href="http://www.emilsoman.com" />
-  <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-05-04T17:52:30+05:30</updated>
+  <id>http://localhost:4000</id>
+  <link href="http://localhost:4000" />
+  <link href="http://localhost:4000/atom.xml" rel="self" />
+  <updated>2014-05-04T19:16:35+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -12,7 +12,7 @@
   
     <entry>
       <title>Building a tested, documented and versioned JSON API using Rails 4</title>
-      <link href="http://www.emilsoman.com/blog/2013/05/18/building-a-tested" />
+      <link href="http://localhost:4000/blog/2013/05/18/building-a-tested" />
       <summary type="html">&lt;h2&gt;Goals&lt;/h2&gt;
 
 &lt;ol&gt;
@@ -136,7 +136,7 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
 &lt;li&gt;Authentication using devise + warden &amp;gt;= 1.2.2&lt;/li&gt;
 &lt;/ol&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2013/05/18/building-a-tested</id>
+      <id>http://localhost:4000/blog/2013/05/18/building-a-tested</id>
       <updated>2013-05-18T18:47:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -145,7 +145,7 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
   
     <entry>
       <title>Confessions of a Vim maniac</title>
-      <link href="http://www.emilsoman.com/blog/2013/04/11/confessions-of-a-vim-maniac" />
+      <link href="http://localhost:4000/blog/2013/04/11/confessions-of-a-vim-maniac" />
       <summary type="html">&lt;p&gt;Though I&amp;#39;d like to think I&amp;#39;m very liberal when it comes to accepting change, I know I&amp;#39;m ridiculously super conservative when it comes to one thing - text editors.&lt;/p&gt;
 
 &lt;p&gt;Ever since I started programming for a living, every character of the code that I&amp;#39;ve written which eventually got compiled or interpreted and got shipped into far away servers which loaded it into their memory, and got executed millions of times by those CPU&amp;#39;s had a humble and delicate origin when I pressed the right keys in the right order in my dearest editor - the Vim editor. After these many years of using Vim without stopping for a moment to think about our journey together, I&amp;#39;m going to do it now.&lt;/p&gt;
@@ -181,7 +181,7 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
 
 &lt;p&gt;So I&amp;#39;m going to start using Sublime Text and I&amp;#39;m going to learn the keyboard shortcuts first. I hope I can do a rundown on the experience later.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2013/04/11/confessions-of-a-vim-maniac</id>
+      <id>http://localhost:4000/blog/2013/04/11/confessions-of-a-vim-maniac</id>
       <updated>2013-04-11T20:41:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -190,7 +190,7 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
   
     <entry>
       <title>Push local master to a different &#39;feature&#39; remote branch</title>
-      <link href="http://www.emilsoman.com/blog/2013/03/05/push-local-master-to-a-different-remote-branch" />
+      <link href="http://localhost:4000/blog/2013/03/05/push-local-master-to-a-different-remote-branch" />
       <summary type="html">&lt;p&gt;You work on an independent POC as part of your project,
 so you have a fresh directory with your POC code which has a local git repo.
 Now you are asked to push this code to a fresh branch on their remote repo.&lt;/p&gt;
@@ -228,7 +228,7 @@ git branch --set-upstream master origin/feature
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git pull
 git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
-      <id>http://www.emilsoman.com/blog/2013/03/05/push-local-master-to-a-different-remote-branch</id>
+      <id>http://localhost:4000/blog/2013/03/05/push-local-master-to-a-different-remote-branch</id>
       <updated>2013-03-05T19:58:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -237,7 +237,7 @@ git push
   
     <entry>
       <title>Semantic Versioning for code releases</title>
-      <link href="http://www.emilsoman.com/blog/2013/02/08/semantic-versioning-for-code-releases" />
+      <link href="http://localhost:4000/blog/2013/02/08/semantic-versioning-for-code-releases" />
       <summary type="html">&lt;p&gt;Rake version got bumped to 10 straight from 0.9 recently. This is what the creator had to say about this:&lt;/p&gt;
 
 &lt;blockquote&gt;&lt;p&gt;Due to historical reasons (or maybe just plain laziness) Rake has (incorrectly) been treating the second digit of the version as the major release number. So in my head Rake was already at version 9.&lt;br/&gt;Well, it’s time to fix things. This next version of Rake drops old, crufty, backwards compatibility hacks such as top level constants, DSL methods defined in Object and numerous other features that are just no longer desired.&lt;br/&gt;It’s also time to drop the leading zero from the version number as well and call this new version of rake what it really is: Version 10.&lt;br/&gt;So, welcome to Rake 10.0!&lt;/p&gt;&lt;footer&gt;&lt;strong&gt;Jim Weirich&lt;/strong&gt; &lt;cite&gt;&lt;a href=&#39;http://rake.rubyforge.org/doc/release_notes/rake-10_0_0_rdoc.html&#39;&gt;Rake 10 Release Notes&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;&lt;/blockquote&gt;
@@ -265,7 +265,7 @@ Users should probably take these changes in whenever available. It may prevent a
 
 &lt;p&gt;Refer &lt;a href=&quot;http://semver.org/&quot;&gt;Semantic Versioning specs&lt;/a&gt; for more info.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2013/02/08/semantic-versioning-for-code-releases</id>
+      <id>http://localhost:4000/blog/2013/02/08/semantic-versioning-for-code-releases</id>
       <updated>2013-02-08T13:58:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -274,7 +274,7 @@ Users should probably take these changes in whenever available. It may prevent a
   
     <entry>
       <title>Git Remote Branches</title>
-      <link href="http://www.emilsoman.com/blog/2013/02/06/git-remote-branches" />
+      <link href="http://localhost:4000/blog/2013/02/06/git-remote-branches" />
       <summary type="html">&lt;p&gt;To avoid forgetting and depending on random links from google again :&lt;/p&gt;
 
 &lt;h4&gt;Push a local branch called &lt;code&gt;new_branch&lt;/code&gt; to a remote branch :&lt;/h4&gt;
@@ -294,7 +294,7 @@ Users should probably take these changes in whenever available. It may prevent a
 #add --dry-run to see a list of branches that will be pruned without actually doing it.
 git branch -d branch_to_be_deleted
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
-      <id>http://www.emilsoman.com/blog/2013/02/06/git-remote-branches</id>
+      <id>http://localhost:4000/blog/2013/02/06/git-remote-branches</id>
       <updated>2013-02-06T17:16:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -303,7 +303,7 @@ git branch -d branch_to_be_deleted
   
     <entry>
       <title>Start over with Design Patterns</title>
-      <link href="http://www.emilsoman.com/blog/2013/01/21/start-over-with-design-patterns" />
+      <link href="http://localhost:4000/blog/2013/01/21/start-over-with-design-patterns" />
       <summary type="html">&lt;p&gt;Years ago, my boss who was also a good mentor suggested that I get myself introduced to Design Patterns.
 So I went ahead and read this big catalog of design patterns - patterns which were reusable solutions for common problems in software design - problems I had not faced yet.&lt;/p&gt;
 
@@ -311,7 +311,7 @@ So I went ahead and read this big catalog of design patterns - patterns which we
 
 &lt;p&gt;But now after many years of doing it the hard way , I think I know why everything had to happen like this. Design patterns is a waste of time if you don&amp;#39;t understand the problems of not having good designs in software. After many years of working with piles of unfathomable mangles of code gifted by long gone deveopers, I think it&amp;#39;s right time to start over with Design Patterns. I&amp;#39;m picking up the Gang of Four book again.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2013/01/21/start-over-with-design-patterns</id>
+      <id>http://localhost:4000/blog/2013/01/21/start-over-with-design-patterns</id>
       <updated>2013-01-21T15:15:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -320,7 +320,7 @@ So I went ahead and read this big catalog of design patterns - patterns which we
   
     <entry>
       <title>Add a CLI to your gems with Thor</title>
-      <link href="http://www.emilsoman.com/blog/2012/12/17/add-a-cli-to-your-gems-with-thor" />
+      <link href="http://localhost:4000/blog/2012/12/17/add-a-cli-to-your-gems-with-thor" />
       <summary type="html">&lt;p&gt;I&amp;#39;m writing this ruby gem &lt;a href=&quot;https://github.com/emilsoman/homer&quot;&gt;homer&lt;/a&gt; which is basically a command line
 tool which helps you to manage your dotfiles. When writing a CLI tool, all those repetitive tasks try to
 drag you down : options parsing, help text, default options, shortnames for options etc.&lt;/p&gt;
@@ -361,7 +361,7 @@ Simple.&lt;/p&gt;
     
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/12/17/add-a-cli-to-your-gems-with-thor</id>
+      <id>http://localhost:4000/blog/2012/12/17/add-a-cli-to-your-gems-with-thor</id>
       <updated>2012-12-17T12:22:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -370,7 +370,7 @@ Simple.&lt;/p&gt;
   
     <entry>
       <title>Roll Your Own Gems with Jeweler</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/07/roll-your-own-gems-with-jeweler" />
+      <link href="http://localhost:4000/blog/2012/11/07/roll-your-own-gems-with-jeweler" />
       <summary type="html">&lt;p&gt;I use &lt;a href=&quot;http://github.com/technicalpickles/jeweler&quot;&gt;jeweler&lt;/a&gt; for my gems. The use of gems 
 like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining 
 gems with jeweler.&lt;/p&gt;
@@ -427,7 +427,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 
 &lt;p&gt;By the way , jeweler can do a few more things than that. Run &lt;code&gt;rake -T&lt;/code&gt; inside the gem directory to see everything jeweler can do.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/07/roll-your-own-gems-with-jeweler</id>
+      <id>http://localhost:4000/blog/2012/11/07/roll-your-own-gems-with-jeweler</id>
       <updated>2012-11-07T21:15:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -436,7 +436,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
   
     <entry>
       <title>MultiEnvironment chef-clients with Vagrant</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/07/multienvironment-chef-clients-with-vagrant" />
+      <link href="http://localhost:4000/blog/2012/11/07/multienvironment-chef-clients-with-vagrant" />
       <summary type="html">&lt;p&gt;I&amp;#39;m doing a lot of things with Chef in my current project, and I was looking for a way to test the client-server architecture of Chef . I could get hold of a couple of unused machines from the IT guys , but that isn&amp;#39;t such a cool thing to do.&lt;/p&gt;
 
 &lt;p&gt;How about this - multiple environments in my own development machine, which I can screw up to my heart&amp;#39;s content , erase everything and restart my test as many times as I want in a flash ? That would be sweet !&lt;/p&gt;
@@ -467,7 +467,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 
 &lt;p&gt;Follow &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;my post on setting up Chef-Client&lt;/a&gt; to set up chef-client on the machines and we&amp;#39;re done !&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/07/multienvironment-chef-clients-with-vagrant</id>
+      <id>http://localhost:4000/blog/2012/11/07/multienvironment-chef-clients-with-vagrant</id>
       <updated>2012-11-07T13:55:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -476,7 +476,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
   
     <entry>
       <title>Chef Resources</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/06/chef-resources" />
+      <link href="http://localhost:4000/blog/2012/11/06/chef-resources" />
       <summary type="html">&lt;p&gt;Here&amp;#39;s a list of all the Resources that Chef can work with :&lt;/p&gt;
 
 &lt;ol&gt;
@@ -514,7 +514,7 @@ gets &lt;em&gt;required&lt;/em&gt; when you require the gem using &lt;code&gt;re
 &lt;p&gt;For examples and detailed documentation , here&amp;#39;s the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Resources&quot;&gt;official doc&lt;/a&gt; .
 Now you know what resources to use when writing your own recipes !&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/06/chef-resources</id>
+      <id>http://localhost:4000/blog/2012/11/06/chef-resources</id>
       <updated>2012-11-06T18:09:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -523,7 +523,7 @@ Now you know what resources to use when writing your own recipes !&lt;/p&gt;
   
     <entry>
       <title>Setting up Chef Client</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/06/setting-up-chef-client" />
+      <link href="http://localhost:4000/blog/2012/11/06/setting-up-chef-client" />
       <summary type="html">&lt;p&gt;We&amp;#39;ve set up a chef server in the &lt;a href=&quot;/blog/2012/11/05/hello/&quot;&gt;previous post&lt;/a&gt;. That was on the host.
 &lt;em&gt;Remember , we&amp;#39;re planning to host the client on a Vagrant virtualbox and the server on the development box&lt;/em&gt;&lt;/p&gt;
 
@@ -564,7 +564,7 @@ This should list your newly added client. If it does , congratulations! Your che
 
 &lt;p&gt;Here&amp;#39;s &lt;a href=&quot;http://ceph.com/docs/master/install/chef/&quot;&gt;another document&lt;/a&gt; that&amp;#39;s helpful in getting chef server and client set up.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/06/setting-up-chef-client</id>
+      <id>http://localhost:4000/blog/2012/11/06/setting-up-chef-client</id>
       <updated>2012-11-06T10:38:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -573,7 +573,7 @@ This should list your newly added client. If it does , congratulations! Your che
   
     <entry>
       <title>Hello Chef!</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/05/hello" />
+      <link href="http://localhost:4000/blog/2012/11/05/hello" />
       <summary type="html">&lt;p&gt;I&amp;#39;m new to Chef. In fact the only time I was good at SysAdmin tasks was when I was 12 years old and I had a Windows 98 running on a Pentium 90 Mhz at my disposal.
 There was no internet - so no StackOverflow or Google. It was all self service. &lt;/p&gt;
 
@@ -647,7 +647,7 @@ I&amp;#39;m skipping these steps for now.&lt;/p&gt;
 
 &lt;p&gt;So that&amp;#39;s it , chef-server is done! We&amp;#39;ll configure the chef-client in the &lt;a href=&quot;/blog/2012/11/06/setting-up-chef-client/&quot;&gt;next post&lt;/a&gt;.&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/05/hello</id>
+      <id>http://localhost:4000/blog/2012/11/05/hello</id>
       <updated>2012-11-05T17:41:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
@@ -656,7 +656,7 @@ I&amp;#39;m skipping these steps for now.&lt;/p&gt;
   
     <entry>
       <title>Setting up a Vagrant VirtualBox</title>
-      <link href="http://www.emilsoman.com/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails" />
+      <link href="http://localhost:4000/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails" />
       <summary type="html">&lt;p&gt;For all the experimentation that I&amp;#39;ll be doing for the next couple of weeks in my current project , I thought it&amp;#39;d be nice to have a virtual box set up.
 I&amp;#39;m choosing &lt;a href=&quot;http://vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt; for this.&lt;/p&gt;
 
@@ -678,7 +678,7 @@ vagrant up
 
 &lt;p&gt;&lt;em&gt;**Note&lt;/em&gt;* : You need to do a little bit more than that to get a complete Rails development environment set up. Follow &lt;a href=&quot;http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/&quot;&gt;this excellent blog post&lt;/a&gt;, to get there.*&lt;/p&gt;
 </summary>
-      <id>http://www.emilsoman.com/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails</id>
+      <id>http://localhost:4000/blog/2012/11/05/setting-up-a-vagrant-virtualbox-for-rails</id>
       <updated>2012-11-05T17:04:00+05:30</updated>
       <author>
         <name>Emil Soman</name>
