@@ -308,6 +308,7 @@ section#single-wrap h1.page-title {
 
 section#single-wrap p {
   padding: 0 40px;
+  color: #333332;
 }
 
 section#single-wrap p a {
@@ -364,7 +365,7 @@ section#single-wrap h2 {
 section#single-wrap h3 {
   font-size: 130%;
   font-weight: lighter;
-  border-bottom: 10px solid rgba(245, 108, 108, 1)
+  border-left: 10px solid rgba(245, 108, 108, 0.27);
 }
 section#single-wrap h4 { font-size: 120%; font-weight: lighter; }
 section#single-wrap h5 { font-size: 110%; }
