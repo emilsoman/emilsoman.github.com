@@ -280,6 +280,10 @@ section#single-wrap #share {
   margin: 50px 20px;
 }
 
+section#single-wrap #share a:hover {
+  color: #4099FF;
+}
+
 section#single-wrap .feat a.popup {
   display: inline-block;
   position: relative;
@@ -306,10 +310,20 @@ section#single-wrap p {
   padding: 0 40px;
 }
 
+section#single-wrap p a {
+  color: #667EFC;
+  text-decoration: none;
+  border-bottom: 1px dashed;
+}
+
+section#single-wrap p a:hover {
+  border-bottom: 1px solid;
+}
+
 section#single-wrap pre { overflow: scroll; }
 
 section#single-wrap code {
-  background-color: rgba(248, 253, 127, 0.31);
+  background-color: rgba(235, 235, 235, 1);
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -336,14 +350,22 @@ section#single-wrap h3,
 section#single-wrap h4,
 section#single-wrap h5,
 section#single-wrap h6 {
-  padding: 40px; 
+  padding: 30px;
   margin-top: 40px;
   font-family: 'Alfa Slab One', cursive;
 }
 
 section#single-wrap h1 { font-size: 150%; }
-section#single-wrap h2 { font-size: 140%; font-style: italic; }
-section#single-wrap h3 { font-size: 130%; font-weight: lighter; }
+section#single-wrap h2 {
+  font-size: 140%;
+  background: #FAFAFA;
+  border-left: 13px solid #FF6B6B;
+}
+section#single-wrap h3 {
+  font-size: 130%;
+  font-weight: lighter;
+  border-bottom: 10px solid rgba(245, 108, 108, 1)
+}
 section#single-wrap h4 { font-size: 120%; font-weight: lighter; }
 section#single-wrap h5 { font-size: 110%; }
 section#single-wrap h6 { font-size: 100%; }
