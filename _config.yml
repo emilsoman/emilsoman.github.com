@@ -24,3 +24,7 @@ disqus_shortname: emilsoman
 exclude: [Gemfile, Gemfile.lock, README.md]
 
 markdown: redcarpet
+
+post:
+  template: post.template
+  extension: md
