@@ -1,0 +1,54 @@
+#off-canvas {
+  font-family: 'Alfa Slab One', cursive;
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0px 40px;
+  background: #fff;
+  -webkit-transition: max-height .35s ease, 
+                      padding-top .35s ease, 
+                      padding-bottom .35s ease, 
+                      border-width .35s ease;
+  transition:         max-height .35s ease, 
+                      padding-top .35s ease, 
+                      padding-bottom .35s ease, 
+                      border-width .35s ease;
+  #bio {
+    width: 70%;
+    max-width: 720px;
+    display: block;
+    h1 {
+      font-size: 140%;
+      margin-top: 0;
+    }
+    p {
+      line-height: 160%;
+      font-size: 100%;
+      margin-bottom: 0;
+    }
+  }
+  #avatar {
+    float: right;
+    display: block;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    img {
+      width: 150px;
+      border-radius: 50%;
+    }
+  }
+}
+
+#off-canvas.toggled {
+  max-height: 90%;
+  padding: 40px;
+  border-width: 1px;
+  -webkit-transition: max-height .35s ease, 
+                      padding-top .35s ease, 
+                      padding-bottom .35s ease, 
+                      border-width .35s ease;
+  transition:         max-height .35s ease, 
+                      padding-top .35s ease, 
+                      padding-bottom .35s ease, 
+                      border-width .35s ease;
+}

@@ -13,7 +13,8 @@ work_url: http://www.codemancers.com
 
 markdown: rdiscount
 permalink: /blog/:year/:month/:day/:title
-pygments: true
+highlighter: pygments
+timezone: Asia/Kolkata
 
 # Google Analytics
 ga_domain: www.emilsoman.com
@@ -21,7 +22,7 @@ ga_tracking_id: UA-36099649-1
 
 disqus_shortname: emilsoman
 
-exclude: [Gemfile, Gemfile.lock, README.md]
+exclude: [Gemfile, Gemfile.lock, README.md, post.template]
 
 markdown: redcarpet
 

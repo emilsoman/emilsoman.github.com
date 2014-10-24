@@ -8,11 +8,8 @@ categories: [rails, api]
 ## Goals
 
 1. Use the leaner [rails-api](https://github.com/rails-api/rails-api). This removes a lot of stuff Rails that you don't need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no "View" layer that renders an HTML view for every request. This makes the response faster.
-
 2. Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.
-
 3. Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.
-
 4. Version API's as per best practices.
 
 ### rails-api
@@ -32,7 +29,7 @@ Now the problem comes while asserting the correctness of responses ( that's the 
 
 The result is a well tested API whose test output serves as documentation for the API. Here's a sample test output : 
 
-{% highlight ruby %}
+```ruby
 Feature: Sign In
 
     Background:
@@ -48,7 +45,7 @@ Feature: Sign In
       And the JSON response should have "auth_token"
         And the auth_token should be different from "auth_token_123"
       And the JSON response at "user_role" should be "admin"
-{% endhighlight %}
+```
 
 ### Devise for authentication.
 
@@ -66,7 +63,7 @@ include ActionController::StrongParameters
 
 Also, devise has the default behavior of redirecting to different paths after authentication actions like sign_in or sign_up. Since we're buiding an API, which has no redirects, we should get around this. For this, I added my own `CustomDevise::SessionsController` which inherits from `Devise::SessionsController` to override the `create` method so that it doesn't redirect on successful sign in. This is how the custom controller looks like :
 
-<script src="https://gist.github.com/emilsoman/5604222.js"></script>
+{% gist emilsoman/5604222 %}
 
 This works for successful authentication. But if an authentication error occurs, the control goes to `warden` which uses a `failure_app` which is nothing but a Rack application which sets the flash messages and renders/redirects based on the requested format. I need a custom json response with an `errors` key holding an array of errors instead of the default `error` key. So I added a `custom_auth_failure_app.rb` under `config/initializers` with the following content :
 
