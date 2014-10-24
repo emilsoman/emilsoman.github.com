@@ -13,7 +13,7 @@ section#content-section {
   width: 100%;
   max-width: 870px;
   margin: 20px auto;
-  font-family: 'Lora', Georgia, serif;
+  font-family: $font-sans;
   background: #fff;
   z-index: 1;
   .single-content {
@@ -58,7 +58,6 @@ section#content-section {
   h1.page-title {
     font-size: 180%;
     line-height: 135%;
-    font-family: 'Open Sans', sans-serif;
     text-align: center;
     /*margin: 0 0 60px;*/
     padding: 10px 0 0 0;
@@ -80,7 +79,7 @@ section#content-section {
   h1, h2, h3, h4, h5, h6 {
     padding: 30px;
     margin-top: 40px;
-    font-family: $font-sans;
+    font-family: $font-serif;
   }
   h1 { font-size: 150%; }
   h2 { font-size: 140%; }
