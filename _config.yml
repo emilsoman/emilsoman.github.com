@@ -22,7 +22,7 @@ ga_tracking_id: UA-36099649-1
 
 disqus_shortname: emilsoman
 
-exclude: [Gemfile, Gemfile.lock, README.md, post.template]
+exclude: [Gemfile, Gemfile.lock, README.md, post.template, Rakefile]
 
 markdown: redcarpet
 

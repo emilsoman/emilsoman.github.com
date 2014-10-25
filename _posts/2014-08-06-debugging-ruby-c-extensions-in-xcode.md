@@ -12,6 +12,8 @@ bug in your Ruby C extension. If you're on OSX you're in luck, because this
 post is about how you can import your C extension code as an XCode project
 and enjoy the benefits of the debugger and other developer tools.
 
+*Note: I'm using XCode v5.1.1 in this tutorial*
+
 ## 1. Get the code
 
 First of all you need to get the code you want to debug. For this example,
