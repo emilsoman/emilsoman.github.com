@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>Debugging Ruby C Extensions in XCode - Emil Soman's blog</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="Emil Soman - Rubyist, artist, guitarist, GardenCityRubyConf organizer">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="http://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div id="off-canvas">
+      <div id="avatar">
+        <img src="/assets/img/avatar.jpeg" alt="Profile Picture">
+      </div>
+      <div id="bio">
+        <p>Coder at Codemancers, Bangalore. GardenCityRubyConf organizer.</p>
+        <p>Works with Ruby, JS, C++, AWS, Chef and Vim.</p>
+        <p>Plays the guitar and sketches other times.</p>
+      </div>
+    </div>
+
+    <header>
+      <div class="h-wrap">
+        <h1 class="title"><a href="/" title="Back to Homepage">Emil Soman</a></h1>
+      </div>
+      <div class="icons-list">
+        <a href="#" class="js-menu-icon" title="Bio"><span class="icon-profile"></span></a>
+        <a href="http://github.com/emilsoman" title="Github"><span class="icon-github"></span></a>
+        <a href="http://twitter.com/emilsoman" title="Twitter"><span class="icon-twitter2"></span></a>
+        <a href="mailto:emil.soman@gmail.com" title= "Email"><span class="icon-mail"></span></a>
+        <a href="http://www.codemancers.com" title="Work"><span class="icon-briefcase"></span></a>
+        <a href="/atom.xml" title= "RSS Feed"><span class="icon-feed"></span></a>
+      </div>
+    </header>
+
+    <main>
+      <!--<section id="single-wrap">-->
+<section id="content-section">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="page-title" itemprop="name headline">Debugging Ruby C Extensions in XCode</h1>
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2014-08-06T21:14:00+05:30" itemprop="datePublished">
+          06 August 2014
+        </time>
+      </h5>
+    </div>
+    <div itemprop="articleBody">
+      <p>Having a nice user interface to set breakpoints, step through execution and
+inspect local variables can be just what you need when chasing a hard to fix
+bug in your Ruby C extension. If you&#39;re on OSX you&#39;re in luck, because this
+post is about how you can import your C extension code as an XCode project
+and enjoy the benefits of the debugger and other developer tools.</p>
+
+<h2>1. Get the code</h2>
+
+<p>First of all you need to get the code you want to debug. For this example,
+I&#39;m going to use <a href="https://github.com/code-mancers/rbkit">Rbkit</a>, a Ruby profiler
+which comes with a C extension. I&#39;ve cloned the gem from its github repo
+( Repo: <code>https://github.com/code-mancers/rbkit.git</code> Revision: <code>04212f93777e7b90fc528b7b1566</code> )
+and run <code>ruby extconf.rb</code> inside <code>ext</code> directory to create the Makefile. XCode
+can take it from here.</p>
+
+<h2>2. Create a new XCode project</h2>
+
+<p>Select <code>File -&gt; New -&gt; Project</code> and choose <code>External Build System</code> from <code>Other</code> :
+<img src="/assets/img/xcode/new_project.png" alt="XCode New Project"></p>
+
+<p>Fill in some product code, say rbkit:
+<img src="/assets/img/xcode/rbkit_project.png" alt="XCode rbkit project"></p>
+
+<p>Select the <code>ext</code> directory of the C extension, this is where the XCode
+project will be created :
+<img src="/assets/img/xcode/ext_directory.png" alt="XCode ext directory"></p>
+
+<h2>3. Build the project</h2>
+
+<p>Now the project is set up and a &quot;Target&quot; is created which is used to build
+the project. Under <code>External Build Tool Configuration</code> (which should be there
+on your screen at this point), choose the <code>ext</code> directory of Rbkit as the
+directory and uncheck <code>Pass build settings in environment</code> checkbox :
+<img src="/assets/img/xcode/rbkit_target.png" alt="XCode target"></p>
+
+<p>Now you should be able to press <kbd>&#8984; cmd</kbd>+<kbd>B</kbd> and build
+the project successfully.</p>
+
+<h2>4. Prepare an executable</h2>
+
+<p>You&#39;ll need to give XCode an executable so that it can be run using
+a debugger. For us the executable is going to be the &quot;ruby&quot; executable.</p>
+
+<p>Create a symlink to ruby at <code>ext</code> directory :</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">~&gt; ln -s <span class="sb">`</span>which ruby<span class="sb">`</span> ruby
+</code></pre></div>
+<p>Now we&#39;ll configure the &quot;Run&quot; command of XCode so that it runs our <code>ruby</code>.
+Select <code>Product -&gt; Scheme -&gt; Edit Scheme</code>. For &quot;Run&quot; scheme (which you can
+select on the left hand side), under <code>Executable</code>, select <code>Other</code> and choose
+the <code>ruby</code> symlink:
+<img src="/assets/img/xcode/choose_executable.png" alt="XCode ruby executable"></p>
+
+<p>Select <code>Options</code> tab and enable <code>Use custom working directory</code> and choose
+<code>ext</code> as the working directory:
+<img src="/assets/img/xcode/current_working_directory.png" alt="XCode working directory"></p>
+
+<p>Select <code>Arguments</code> tab and click on <code>+</code> under <code>Arguments Passed On Launch</code> to
+add the following argument to ruby executable : <code>../experiments/using_rbkit.rb</code>:
+<img src="/assets/img/xcode/ruby_arg.png" alt="XCode ruby arg"></p>
+
+<p>Click OK.</p>
+
+<p>Now you should be able to press the Run button
+<img src="/assets/img/xcode/run.png" style="width:25px;height:20px;padding:0px;margin-bottom:-5px;">
+( or <kbd>&#8984; cmd</kbd>+<kbd>R</kbd> ) to run the script using Ruby.
+Once the script is running, you should be able to see that Memory usage keeps
+increasing steadily under the Debug Navigation (<kbd>&#8984; cmd</kbd>+<kbd>6</kbd>).
+That&#39;s because our <code>experiments/using_rbkit.rb</code> script just keeps creating
+new objects in Ruby.
+<img src="/assets/img/xcode/debug_nav.png" style="max-height:500px;max-width:400px;align:middle;"></p>
+
+<h2>5. Start debugging</h2>
+
+<p>Now that the project is set up and we&#39;re able to run the code using XCode,
+we should be able to map the source files for the executables and use the
+debugger to add breakpoints and step through the code.</p>
+
+<h4>1. Add source files</h4>
+
+<p>Select Project Navigation ( <kbd>&#8984; cmd</kbd>+<kbd>1</kbd> ) , click the
+<code>+</code> button on the bottom left corner and select <code>Add files to &quot;rbkit&quot;</code>.
+<img src="/assets/img/xcode/add_source.png" alt="XCode add source files">
+You can now add the source files which you want to debug. For now, I&#39;m just adding
+<code>rbkit_tracer.c</code>.</p>
+
+<h4>2. Set breakpoints and inspect variables</h4>
+
+<p>Let&#39;s add a breakpoint on <code>rbkit_tracer.c:206</code> :
+<img src="/assets/img/xcode/breakpoint.png" alt="XCode add breakpoint"></p>
+
+<p>This line gets called everytime a new object is created to serialize the
+object&#39;s classname. Once we &quot;Run&quot; the project, execution should pause at
+this breakpoint. Now we can &quot;Step into&quot; the <code>pack_string</code> function
+( using <kbd>F7</kbd>) to see the classname being passed into it. At the bottom
+on the left half, we can see the variables and their values and on the right
+half is an interactive lldb console. <code>frame variable string</code> will return the
+value of the <code>char * string</code> argument of <code>pack_string</code> function where we have
+stepped into. Check it out :
+<img src="/assets/img/xcode/inspect_variable.png" alt="XCode inspect variable"></p>
+
+<h2>Done!</h2>
+
+<p>Good job if you&#39;ve reached this far. You should be able to take this forward
+and unleash mad debugging skills upon all C extensions.</p>
+
+<p>To recap :</p>
+
+<ol>
+<li>We cloned the C extension source, created the Makefile.</li>
+<li>Set up XCode project and built the project.</li>
+<li>Ran our test script using the ruby executable from XCode.</li>
+<li>Added source files and tried out some debugging.</li>
+</ol>
+
+    </div>
+    <div id="share" class="feat">
+      <a href="http://twitter.com/share" class="popup">
+        <span class="icon-twitter"></span>
+      </a>
+    </div>
+    
+    
+      <a rel="prev" href="/blog/2013/05/18/building-a-tested" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+
+    
+      <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'emilsoman';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+  </article>
+</section>
+
+    </main>
+
+    <footer>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    
+    
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36099649-1', 'www.emilsoman.com');
+        ga('send', 'pageview');
+      </script>
+    
+
+  </body>
+</html>

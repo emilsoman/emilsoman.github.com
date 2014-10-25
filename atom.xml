@@ -4,11 +4,135 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-05-06T08:30:02+05:30</updated>
+  <updated>2014-10-25T13:41:02+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
   </author>
+  
+    <entry>
+      <title>Debugging Ruby C Extensions in XCode</title>
+      <link href="http://www.emilsoman.com/blog/2014/08/06/debugging-ruby-c-extensions-in-xcode" />
+      <summary type="html">&lt;p&gt;Having a nice user interface to set breakpoints, step through execution and
+inspect local variables can be just what you need when chasing a hard to fix
+bug in your Ruby C extension. If you&amp;#39;re on OSX you&amp;#39;re in luck, because this
+post is about how you can import your C extension code as an XCode project
+and enjoy the benefits of the debugger and other developer tools.&lt;/p&gt;
+
+&lt;h2&gt;1. Get the code&lt;/h2&gt;
+
+&lt;p&gt;First of all you need to get the code you want to debug. For this example,
+I&amp;#39;m going to use &lt;a href=&quot;https://github.com/code-mancers/rbkit&quot;&gt;Rbkit&lt;/a&gt;, a Ruby profiler
+which comes with a C extension. I&amp;#39;ve cloned the gem from its github repo
+( Repo: &lt;code&gt;https://github.com/code-mancers/rbkit.git&lt;/code&gt; Revision: &lt;code&gt;04212f93777e7b90fc528b7b1566&lt;/code&gt; )
+and run &lt;code&gt;ruby extconf.rb&lt;/code&gt; inside &lt;code&gt;ext&lt;/code&gt; directory to create the Makefile. XCode
+can take it from here.&lt;/p&gt;
+
+&lt;h2&gt;2. Create a new XCode project&lt;/h2&gt;
+
+&lt;p&gt;Select &lt;code&gt;File -&amp;gt; New -&amp;gt; Project&lt;/code&gt; and choose &lt;code&gt;External Build System&lt;/code&gt; from &lt;code&gt;Other&lt;/code&gt; :
+&lt;img src=&quot;/assets/img/xcode/new_project.png&quot; alt=&quot;XCode New Project&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Fill in some product code, say rbkit:
+&lt;img src=&quot;/assets/img/xcode/rbkit_project.png&quot; alt=&quot;XCode rbkit project&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Select the &lt;code&gt;ext&lt;/code&gt; directory of the C extension, this is where the XCode
+project will be created :
+&lt;img src=&quot;/assets/img/xcode/ext_directory.png&quot; alt=&quot;XCode ext directory&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;3. Build the project&lt;/h2&gt;
+
+&lt;p&gt;Now the project is set up and a &amp;quot;Target&amp;quot; is created which is used to build
+the project. Under &lt;code&gt;External Build Tool Configuration&lt;/code&gt; (which should be there
+on your screen at this point), choose the &lt;code&gt;ext&lt;/code&gt; directory of Rbkit as the
+directory and uncheck &lt;code&gt;Pass build settings in environment&lt;/code&gt; checkbox :
+&lt;img src=&quot;/assets/img/xcode/rbkit_target.png&quot; alt=&quot;XCode target&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you should be able to press &lt;kbd&gt;&amp;#8984; cmd&lt;/kbd&gt;+&lt;kbd&gt;B&lt;/kbd&gt; and build
+the project successfully.&lt;/p&gt;
+
+&lt;h2&gt;4. Prepare an executable&lt;/h2&gt;
+
+&lt;p&gt;You&amp;#39;ll need to give XCode an executable so that it can be run using
+a debugger. For us the executable is going to be the &amp;quot;ruby&amp;quot; executable.&lt;/p&gt;
+
+&lt;p&gt;Create a symlink to ruby at &lt;code&gt;ext&lt;/code&gt; directory :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;~&amp;gt; ln -s &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which ruby&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; ruby
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we&amp;#39;ll configure the &amp;quot;Run&amp;quot; command of XCode so that it runs our &lt;code&gt;ruby&lt;/code&gt;.
+Select &lt;code&gt;Product -&amp;gt; Scheme -&amp;gt; Edit Scheme&lt;/code&gt;. For &amp;quot;Run&amp;quot; scheme (which you can
+select on the left hand side), under &lt;code&gt;Executable&lt;/code&gt;, select &lt;code&gt;Other&lt;/code&gt; and choose
+the &lt;code&gt;ruby&lt;/code&gt; symlink:
+&lt;img src=&quot;/assets/img/xcode/choose_executable.png&quot; alt=&quot;XCode ruby executable&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;Options&lt;/code&gt; tab and enable &lt;code&gt;Use custom working directory&lt;/code&gt; and choose
+&lt;code&gt;ext&lt;/code&gt; as the working directory:
+&lt;img src=&quot;/assets/img/xcode/current_working_directory.png&quot; alt=&quot;XCode working directory&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Select &lt;code&gt;Arguments&lt;/code&gt; tab and click on &lt;code&gt;+&lt;/code&gt; under &lt;code&gt;Arguments Passed On Launch&lt;/code&gt; to
+add the following argument to ruby executable : &lt;code&gt;../experiments/using_rbkit.rb&lt;/code&gt;:
+&lt;img src=&quot;/assets/img/xcode/ruby_arg.png&quot; alt=&quot;XCode ruby arg&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Click OK.&lt;/p&gt;
+
+&lt;p&gt;Now you should be able to press the Run button
+&lt;img src=&quot;/assets/img/xcode/run.png&quot; style=&quot;width:25px;height:20px;padding:0px;margin-bottom:-5px;&quot;&gt;
+( or &lt;kbd&gt;&amp;#8984; cmd&lt;/kbd&gt;+&lt;kbd&gt;R&lt;/kbd&gt; ) to run the script using Ruby.
+Once the script is running, you should be able to see that Memory usage keeps
+increasing steadily under the Debug Navigation (&lt;kbd&gt;&amp;#8984; cmd&lt;/kbd&gt;+&lt;kbd&gt;6&lt;/kbd&gt;).
+That&amp;#39;s because our &lt;code&gt;experiments/using_rbkit.rb&lt;/code&gt; script just keeps creating
+new objects in Ruby.
+&lt;img src=&quot;/assets/img/xcode/debug_nav.png&quot; style=&quot;max-height:500px;max-width:400px;align:middle;&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;5. Start debugging&lt;/h2&gt;
+
+&lt;p&gt;Now that the project is set up and we&amp;#39;re able to run the code using XCode,
+we should be able to map the source files for the executables and use the
+debugger to add breakpoints and step through the code.&lt;/p&gt;
+
+&lt;h4&gt;1. Add source files&lt;/h4&gt;
+
+&lt;p&gt;Select Project Navigation ( &lt;kbd&gt;&amp;#8984; cmd&lt;/kbd&gt;+&lt;kbd&gt;1&lt;/kbd&gt; ) , click the
+&lt;code&gt;+&lt;/code&gt; button on the bottom left corner and select &lt;code&gt;Add files to &amp;quot;rbkit&amp;quot;&lt;/code&gt;.
+&lt;img src=&quot;/assets/img/xcode/add_source.png&quot; alt=&quot;XCode add source files&quot;&gt;
+You can now add the source files which you want to debug. For now, I&amp;#39;m just adding
+&lt;code&gt;rbkit_tracer.c&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4&gt;2. Set breakpoints and inspect variables&lt;/h4&gt;
+
+&lt;p&gt;Let&amp;#39;s add a breakpoint on &lt;code&gt;rbkit_tracer.c:206&lt;/code&gt; :
+&lt;img src=&quot;/assets/img/xcode/breakpoint.png&quot; alt=&quot;XCode add breakpoint&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;This line gets called everytime a new object is created to serialize the
+object&amp;#39;s classname. Once we &amp;quot;Run&amp;quot; the project, execution should pause at
+this breakpoint. Now we can &amp;quot;Step into&amp;quot; the &lt;code&gt;pack_string&lt;/code&gt; function
+( using &lt;kbd&gt;F7&lt;/kbd&gt;) to see the classname being passed into it. At the bottom
+on the left half, we can see the variables and their values and on the right
+half is an interactive lldb console. &lt;code&gt;frame variable string&lt;/code&gt; will return the
+value of the &lt;code&gt;char * string&lt;/code&gt; argument of &lt;code&gt;pack_string&lt;/code&gt; function where we have
+stepped into. Check it out :
+&lt;img src=&quot;/assets/img/xcode/inspect_variable.png&quot; alt=&quot;XCode inspect variable&quot;&gt;&lt;/p&gt;
+
+&lt;h2&gt;Done!&lt;/h2&gt;
+
+&lt;p&gt;Good job if you&amp;#39;ve reached this far. You should be able to take this forward
+and unleash mad debugging skills upon all C extensions.&lt;/p&gt;
+
+&lt;p&gt;To recap :&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We cloned the C extension source, created the Makefile.&lt;/li&gt;
+&lt;li&gt;Set up XCode project and built the project.&lt;/li&gt;
+&lt;li&gt;Ran our test script using the ruby executable from XCode.&lt;/li&gt;
+&lt;li&gt;Added source files and tried out some debugging.&lt;/li&gt;
+&lt;/ol&gt;
+</summary>
+      <id>http://www.emilsoman.com/blog/2014/08/06/debugging-ruby-c-extensions-in-xcode</id>
+      <updated>2014-08-06T21:14:00+05:30</updated>
+      <author>
+        <name>Emil Soman</name>
+      </author>
+    </entry>
   
     <entry>
       <title>Building a tested, documented and versioned JSON API using Rails 4</title>
@@ -16,10 +140,10 @@
       <summary type="html">&lt;h2&gt;Goals&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Use the leaner &lt;a href=&quot;https://github.com/rails-api/rails-api&quot;&gt;rails-api&lt;/a&gt;. This removes a lot of stuff Rails that you don&amp;#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &amp;quot;View&amp;quot; layer that renders an HTML view for every request. This makes the response faster.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Version API&amp;#39;s as per best practices.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Use the leaner &lt;a href=&quot;https://github.com/rails-api/rails-api&quot;&gt;rails-api&lt;/a&gt;. This removes a lot of stuff Rails that you don&amp;#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &amp;quot;View&amp;quot; layer that renders an HTML view for every request. This makes the response faster.&lt;/li&gt;
+&lt;li&gt;Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.&lt;/li&gt;
+&lt;li&gt;Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.&lt;/li&gt;
+&lt;li&gt;Version API&amp;#39;s as per best practices.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3&gt;rails-api&lt;/h3&gt;
@@ -40,8 +164,7 @@
 &lt;p&gt;Now the problem comes while asserting the correctness of responses ( that&amp;#39;s the whole point of testing ). I found another gem that helps here : &lt;a href=&quot;https://github.com/collectiveidea/json_spec&quot;&gt;json_spec&lt;/a&gt; . It ships with cucumber steps that help you match the response to your expected response .&lt;/p&gt;
 
 &lt;p&gt;The result is a well tested API whose test output serves as documentation for the API. Here&amp;#39;s a sample test output : &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;ss&quot;&gt;Feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sign&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;In&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;ss&quot;&gt;Feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sign&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;In&lt;/span&gt;
 
     &lt;span class=&quot;ss&quot;&gt;Background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
       &lt;span class=&quot;no&quot;&gt;Given&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;I&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accept&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;
@@ -57,7 +180,6 @@
         &lt;span class=&quot;no&quot;&gt;And&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;auth_token&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;should&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;different&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;auth_token_123&amp;quot;&lt;/span&gt;
       &lt;span class=&quot;no&quot;&gt;And&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;user_role&amp;quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;should&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;admin&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
 &lt;h3&gt;Devise for authentication.&lt;/h3&gt;
 
 &lt;p&gt;This is where things get tricky. First of all, devise needs to work well with Rails 4. There&amp;#39;s a &lt;code&gt;rails4&lt;/code&gt; branch in devise github repo which I specified in my Gemfile.&lt;/p&gt;
@@ -67,24 +189,22 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
  when using &lt;code&gt;rails-api&lt;/code&gt; and does not include StrongParameters and params will be an instance of HashWithIndifferentAccess which does not have
  the &lt;code&gt;permit&lt;/code&gt; method. To solve these problems, add the following to &lt;code&gt;app/controllers/application_controller.rb&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActionController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;MimeResponds&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActionController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StrongParameters&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActionController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;MimeResponds&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActionController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StrongParameters&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Also, devise has the default behavior of redirecting to different paths after authentication actions like sign&lt;em&gt;in or sign&lt;/em&gt;up. Since we&amp;#39;re buiding an API, which has no redirects, we should get around this. For this, I added my own &lt;code&gt;CustomDevise::SessionsController&lt;/code&gt; which inherits from &lt;code&gt;Devise::SessionsController&lt;/code&gt; to override the &lt;code&gt;create&lt;/code&gt; method so that it doesn&amp;#39;t redirect on successful sign in. This is how the custom controller looks like :&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/emilsoman/5604222.js&quot;&gt;&lt;/script&gt;
+&lt;p&gt;&lt;script src=&quot;https://gist.github.com/emilsoman/5604222.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;This works for successful authentication. But if an authentication error occurs, the control goes to &lt;code&gt;warden&lt;/code&gt; which uses a &lt;code&gt;failure_app&lt;/code&gt; which is nothing but a Rack application which sets the flash messages and renders/redirects based on the requested format. I need a custom json response with an &lt;code&gt;errors&lt;/code&gt; key holding an array of errors instead of the default &lt;code&gt;error&lt;/code&gt; key. So I added a &lt;code&gt;custom_auth_failure_app.rb&lt;/code&gt; under &lt;code&gt;config/initializers&lt;/code&gt; with the following content :&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/emilsoman/5604254.js&quot;&gt;&lt;/script&gt;
+&lt;p&gt;&lt;script src=&quot;https://gist.github.com/emilsoman/5604254.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;Now we have to tell Devise to use the custom failure app by adding this to &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; : &lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warden&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warden&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;manager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;failure_app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CustomAuthFailure&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h4&gt;Token based authentication&lt;/h4&gt;
 
@@ -103,9 +223,8 @@ also &lt;code&gt;rails4&lt;/code&gt; branch of devise calls the &amp;quot;permit
 &lt;li&gt;Set the following lines in &lt;code&gt;config/initializers/devise.rb&lt;/code&gt; : &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http_authenticatable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip_session_storage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:http_auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:token_auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http_authenticatable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skip_session_storage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:http_auth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:token_auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This will enable http basic authentication in devise and prevent session storage for token authentication.&lt;/p&gt;
 
@@ -205,12 +324,12 @@ Now you are asked to push this code to a fresh branch on their remote repo.&lt;/
 &lt;p&gt;You want a clean remote branch called &lt;code&gt;feature&lt;/code&gt; without any history.&lt;/p&gt;
 
 &lt;h4&gt;Clone the remote repo in a different directory and create an orphan branch :&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git clone &amp;lt;remote repo url&amp;gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git clone &amp;lt;remote repo url&amp;gt;
 git checkout --orphan feature
 git rm -rf .
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Push &lt;code&gt;feature&lt;/code&gt; branch :&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;quot;Feature branch&amp;quot; &amp;gt; README.md
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;quot;Feature branch&amp;quot; &amp;gt; README.md
 git add .
 git commit -a -m &amp;quot;Feature branch created&amp;quot;
 git push origin feature
@@ -218,14 +337,14 @@ git push origin feature
 &lt;p&gt;Now you have the &lt;code&gt;feature&lt;/code&gt; branch in your remote which is an orphan.&lt;/p&gt;
 
 &lt;h4&gt;Add remote in your local dev repo:&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remote add origin &amp;lt;remote repo url&amp;gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git remote add origin &amp;lt;remote repo url&amp;gt;
 git fetch
 git remote set-url --push origin &amp;lt;remote repo url&amp;gt;
 git config remote.origin.push refs/heads/master:feature
 git branch --set-upstream master origin/feature
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;Done&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git pull
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git pull
 git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
       <id>http://www.emilsoman.com/blog/2013/03/05/push-local-master-to-a-different-remote-branch</id>
@@ -278,19 +397,19 @@ Users should probably take these changes in whenever available. It may prevent a
       <summary type="html">&lt;p&gt;To avoid forgetting and depending on random links from google again :&lt;/p&gt;
 
 &lt;h4&gt;Push a local branch called &lt;code&gt;new_branch&lt;/code&gt; to a remote branch :&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git push -u origin new_branch
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git push -u origin new_branch
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;To checkout a branch &lt;code&gt;new_branch&lt;/code&gt; from remote &lt;code&gt;origin/new_branch&lt;/code&gt;:&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git checkout -b new_branch origin/new_branch
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git checkout -b new_branch origin/new_branch
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Or:
     git checkout --track origin/new_branch&lt;/p&gt;
 
 &lt;h4&gt;To delete a remote branch &lt;code&gt;serverfix&lt;/code&gt;:&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git push origin :serverfix
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git push origin :serverfix
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h4&gt;To delete all stale(already deleted in remote) branches :&lt;/h4&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remote prune origin
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git remote prune origin
 #add --dry-run to see a list of branches that will be pruned without actually doing it.
 git branch -d branch_to_be_deleted
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary>
@@ -338,15 +457,13 @@ drag you down : options parsing, help text, default options, shortnames for opti
 &lt;li&gt;Defined the Thor class&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HomerRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thor&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HomerRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thor&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;desc&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;init&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Unleashes homer to feed on your dotfiles&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;
       &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Homer Unleashed !&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;HomerRunner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;
-  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;no&quot;&gt;HomerRunner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;That&amp;#39;s really it! &lt;code&gt;bin/homer&lt;/code&gt; will be an executable when the homer gem is installed and I can run &lt;code&gt;homer init&lt;/code&gt;.&lt;/p&gt;
 
@@ -354,12 +471,10 @@ drag you down : options parsing, help text, default options, shortnames for opti
 what, thor took care of that already. &lt;code&gt;homer --help&lt;/code&gt; is at your disposal. How about making &lt;code&gt;help&lt;/code&gt; the default task?
 Simple.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HomerRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thor&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HomerRunner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Thor&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;default_task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:help&lt;/span&gt;
       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </summary>
       <id>http://www.emilsoman.com/blog/2012/12/17/add-a-cli-to-your-gems-with-thor</id>
       <updated>2012-12-17T12:22:00+05:30</updated>
@@ -384,11 +499,11 @@ gems with jeweler.&lt;/p&gt;
 
 &lt;p&gt;First, you&amp;#39;ll have to create a repo on GitHub with the gem name, here, &amp;#39;hello_world&amp;#39;. Once that&amp;#39;s done, 
 we&amp;#39;ll use jeweler to create a skeleton of the gem.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This will create the gem directory &lt;code&gt;hello_world&lt;/code&gt; where your gem lives. You can also see that 
 the directory is now a git repo and the code has been pushed to GitHub.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;git remove -v
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;git remove -v
 origingit@github.com:emilsoman/contractor.git (fetch)
 origingit@githubithub.com:emilsoman/contractor.git (push)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -588,13 +703,13 @@ I&amp;#39;ll use my host machine as the Chef Server.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;I&amp;#39;m following the &lt;a href=&quot;http://wiki.opscode.com/display/chef/Installing+Chef+Server+using+Chef+Solo&quot;&gt;OpsCode docs&lt;/a&gt; for this one&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;In my host, I run this :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install ruby ruby-dev libopenssl-ruby rdoc ri irb build-essential wget ssl-cert rubygems
 sudo gem install --no-rdoc --no-ri chef
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This installs the chef-solo which I&amp;#39;ll use to bootstrap chef-server. As it turned out, &lt;strong&gt;sudo&lt;/strong&gt; was important.&lt;/p&gt;
 
 &lt;p&gt;Next, create &lt;code&gt;/etc/chef&lt;/code&gt; to store configurations for chef solo runs.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo mkdir /etc/chef/
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo mkdir /etc/chef/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Create &lt;code&gt;/etc/chef/solo.rb&lt;/code&gt; configuration file as below :
 &lt;script src=&quot;https://gist.github.com/4017288.js?file=solo.rb&quot;&gt; &lt;/script&gt;&lt;/p&gt;
@@ -604,12 +719,12 @@ Create &lt;code&gt;~/chef.json&lt;/code&gt; configuration file as below :
 &lt;script src=&quot;https://gist.github.com/4017288.js?file=chef.json&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
 &lt;p&gt;Run the following to bootstrap chef-server :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo chef-solo -c /etc/chef/solo.rb -j ~/chef.json -r http://s3.amazonaws.com/chef-solo/bootstrap-latest.tar.gz
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This installs chef-server , chef-solr , chef-server-webui and all the dependencies .&lt;/p&gt;
 
 &lt;p&gt;Run this to start the cef server:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo ln -s /usr/local/bin/chef-solr /usr/bin/chef-solr
 sudo ln -s /usr/local/bin/chef-expander /usr/bin/chef-expander
 sudo ln -s /usr/local/bin/chef-server /usr/bin/chef-server
 sudo ln -s /usr/local/bin/chef-client /usr/bin/chef-client
@@ -621,12 +736,12 @@ sudo /etc/init.d/chef-server start
 &lt;p&gt;Chef-Server is running now. That wasn&amp;#39;t so hard.&lt;/p&gt;
 
 &lt;p&gt;Now we&amp;#39;ll create &lt;code&gt;~/.chef&lt;/code&gt; directory to hold the configurations for the server. We&amp;#39;ll move the keys generated by the server to this directory and set permissions for the current user&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mkdir -p ~/.chef
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mkdir -p ~/.chef
 sudo cp /etc/chef/validation.pem /etc/chef/webui.pem ~/.chef
 sudo chown -R $USER ~/.chef
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The next step is to configure the &lt;code&gt;knife&lt;/code&gt; command line tool. Let&amp;#39;s do that :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;knife configure -i
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;knife configure -i
 WARNING: No knife configuration file found
 Where should I put the config file? [/home/emil/.chef/knife.rb] 
 Please enter the chef server URL: [http://emil-desktop:4000] http://l.m.x.y:4000
@@ -665,14 +780,14 @@ I&amp;#39;m choosing &lt;a href=&quot;http://vagrantup.com/&quot;&gt;Vagrant&lt;
 &lt;p&gt;Since I&amp;#39;m using Ubuntu 12.04 32-bit, I downloaded &lt;a href=&quot;https://www.virtualbox.org/wiki/Linux_Downloads&quot;&gt;that version&lt;/a&gt; of Oracle VirtualBox - very straightforward.&lt;/p&gt;
 
 &lt;p&gt;Then , installed Vagrant gem :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;gem install vagrant
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;gem install vagrant
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then I went to my project folder which I want to be shared with the VirtualBox and ran this :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;vagrant init lucid32 http://files.vagrantup.com/lucid32.box
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;vagrant init lucid32 http://files.vagrantup.com/lucid32.box
 vagrant up
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This downloads the lucid32 box from the URL. This takes a while. Once that&amp;#39;s done , you can do :&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;vagrant ssh
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;vagrant ssh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And you&amp;#39;re in the VirtualBox . Pretty neat !&lt;/p&gt;
 

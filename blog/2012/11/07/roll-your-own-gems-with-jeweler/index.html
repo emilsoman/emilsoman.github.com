@@ -47,8 +47,10 @@
     </header>
 
     <main>
-      <section id="single-wrap">
+      <!--<section id="single-wrap">-->
+<section id="content-section">
   <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="page-title" itemprop="name headline">Roll Your Own Gems with Jeweler</h1>
     <div class="feat">
       <h5 class="page-date">
         <time datetime="2012-11-07T21:15:00+05:30" itemprop="datePublished">
@@ -56,7 +58,6 @@
         </time>
       </h5>
     </div>
-    <h1 class="page-title" itemprop="name headline">Roll Your Own Gems with Jeweler</h1>
     <div itemprop="articleBody">
       <p>I use <a href="http://github.com/technicalpickles/jeweler">jeweler</a> for my gems. The use of gems 
 like jeweler or hoe for gem development is a much debated topic, but it was pretty easy maintaining 
@@ -71,11 +72,11 @@ gems with jeweler.</p>
 
 <p>First, you&#39;ll have to create a repo on GitHub with the gem name, here, &#39;hello_world&#39;. Once that&#39;s done, 
 we&#39;ll use jeweler to create a skeleton of the gem.</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
+<div class="highlight"><pre><code class="language-text" data-lang="text">jeweler hello_world --rspec --github-username emilsoman --github-token any_random_string
 </code></pre></div>
 <p>This will create the gem directory <code>hello_world</code> where your gem lives. You can also see that 
 the directory is now a git repo and the code has been pushed to GitHub.</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git remove -v
+<div class="highlight"><pre><code class="language-text" data-lang="text">git remove -v
 origingit@github.com:emilsoman/contractor.git (fetch)
 origingit@githubithub.com:emilsoman/contractor.git (push)
 </code></pre></div>

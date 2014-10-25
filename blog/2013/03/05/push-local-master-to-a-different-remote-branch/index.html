@@ -47,8 +47,10 @@
     </header>
 
     <main>
-      <section id="single-wrap">
+      <!--<section id="single-wrap">-->
+<section id="content-section">
   <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="page-title" itemprop="name headline">Push local master to a different 'feature' remote branch</h1>
     <div class="feat">
       <h5 class="page-date">
         <time datetime="2013-03-05T19:58:00+05:30" itemprop="datePublished">
@@ -56,7 +58,6 @@
         </time>
       </h5>
     </div>
-    <h1 class="page-title" itemprop="name headline">Push local master to a different 'feature' remote branch</h1>
     <div itemprop="articleBody">
       <p>You work on an independent POC as part of your project,
 so you have a fresh directory with your POC code which has a local git repo.
@@ -72,12 +73,12 @@ Now you are asked to push this code to a fresh branch on their remote repo.</p>
 <p>You want a clean remote branch called <code>feature</code> without any history.</p>
 
 <h4>Clone the remote repo in a different directory and create an orphan branch :</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git clone &lt;remote repo url&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone &lt;remote repo url&gt;
 git checkout --orphan feature
 git rm -rf .
 </code></pre></div>
 <h4>Push <code>feature</code> branch :</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">echo &quot;Feature branch&quot; &gt; README.md
+<div class="highlight"><pre><code class="language-text" data-lang="text">echo &quot;Feature branch&quot; &gt; README.md
 git add .
 git commit -a -m &quot;Feature branch created&quot;
 git push origin feature
@@ -85,14 +86,14 @@ git push origin feature
 <p>Now you have the <code>feature</code> branch in your remote which is an orphan.</p>
 
 <h4>Add remote in your local dev repo:</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git remote add origin &lt;remote repo url&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">git remote add origin &lt;remote repo url&gt;
 git fetch
 git remote set-url --push origin &lt;remote repo url&gt;
 git config remote.origin.push refs/heads/master:feature
 git branch --set-upstream master origin/feature
 </code></pre></div>
 <h4>Done</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git pull
+<div class="highlight"><pre><code class="language-text" data-lang="text">git pull
 git push
 </code></pre></div>
     </div>

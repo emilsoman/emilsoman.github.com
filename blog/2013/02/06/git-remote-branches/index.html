@@ -47,8 +47,10 @@
     </header>
 
     <main>
-      <section id="single-wrap">
+      <!--<section id="single-wrap">-->
+<section id="content-section">
   <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="page-title" itemprop="name headline">Git Remote Branches</h1>
     <div class="feat">
       <h5 class="page-date">
         <time datetime="2013-02-06T17:16:00+05:30" itemprop="datePublished">
@@ -56,24 +58,23 @@
         </time>
       </h5>
     </div>
-    <h1 class="page-title" itemprop="name headline">Git Remote Branches</h1>
     <div itemprop="articleBody">
       <p>To avoid forgetting and depending on random links from google again :</p>
 
 <h4>Push a local branch called <code>new_branch</code> to a remote branch :</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git push -u origin new_branch
+<div class="highlight"><pre><code class="language-text" data-lang="text">git push -u origin new_branch
 </code></pre></div>
 <h4>To checkout a branch <code>new_branch</code> from remote <code>origin/new_branch</code>:</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git checkout -b new_branch origin/new_branch
+<div class="highlight"><pre><code class="language-text" data-lang="text">git checkout -b new_branch origin/new_branch
 </code></pre></div>
 <p>Or:
     git checkout --track origin/new_branch</p>
 
 <h4>To delete a remote branch <code>serverfix</code>:</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git push origin :serverfix
+<div class="highlight"><pre><code class="language-text" data-lang="text">git push origin :serverfix
 </code></pre></div>
 <h4>To delete all stale(already deleted in remote) branches :</h4>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">git remote prune origin
+<div class="highlight"><pre><code class="language-text" data-lang="text">git remote prune origin
 #add --dry-run to see a list of branches that will be pruned without actually doing it.
 git branch -d branch_to_be_deleted
 </code></pre></div>

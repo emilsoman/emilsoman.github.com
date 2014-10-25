@@ -47,8 +47,10 @@
     </header>
 
     <main>
-      <section id="single-wrap">
+      <!--<section id="single-wrap">-->
+<section id="content-section">
   <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <h1 class="page-title" itemprop="name headline">Building a tested, documented and versioned JSON API using Rails 4</h1>
     <div class="feat">
       <h5 class="page-date">
         <time datetime="2013-05-18T18:47:00+05:30" itemprop="datePublished">
@@ -56,15 +58,14 @@
         </time>
       </h5>
     </div>
-    <h1 class="page-title" itemprop="name headline">Building a tested, documented and versioned JSON API using Rails 4</h1>
     <div itemprop="articleBody">
       <h2>Goals</h2>
 
 <ol>
-<li><p>Use the leaner <a href="https://github.com/rails-api/rails-api">rails-api</a>. This removes a lot of stuff Rails that you don&#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &quot;View&quot; layer that renders an HTML view for every request. This makes the response faster.</p></li>
-<li><p>Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.</p></li>
-<li><p>Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.</p></li>
-<li><p>Version API&#39;s as per best practices.</p></li>
+<li>Use the leaner <a href="https://github.com/rails-api/rails-api">rails-api</a>. This removes a lot of stuff Rails that you don&#39;t need for an API. This ensures that the API works for non-browser clients which do not support cookies. Also, there is no &quot;View&quot; layer that renders an HTML view for every request. This makes the response faster.</li>
+<li>Use Cucumber for integration tests. This serves as a way for testing the APIs and also for documenting them.</li>
+<li>Use devise gem for authentication and support token based authentication. There are things to watch out here since devise by default requires session and also tries to redirect after requests. We need to get around these.</li>
+<li>Version API&#39;s as per best practices.</li>
 </ol>
 
 <h3>rails-api</h3>
@@ -85,8 +86,7 @@
 <p>Now the problem comes while asserting the correctness of responses ( that&#39;s the whole point of testing ). I found another gem that helps here : <a href="https://github.com/collectiveidea/json_spec">json_spec</a> . It ships with cucumber steps that help you match the response to your expected response .</p>
 
 <p>The result is a well tested API whose test output serves as documentation for the API. Here&#39;s a sample test output : </p>
-
-<div class="highlight"><pre><code class="ruby"><span class="ss">Feature</span><span class="p">:</span> <span class="no">Sign</span> <span class="no">In</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">Feature</span><span class="p">:</span> <span class="no">Sign</span> <span class="no">In</span>
 
     <span class="ss">Background</span><span class="p">:</span>
       <span class="no">Given</span> <span class="n">I</span> <span class="nb">send</span> <span class="ow">and</span> <span class="n">accept</span> <span class="no">JSON</span>
@@ -102,7 +102,6 @@
         <span class="no">And</span> <span class="n">the</span> <span class="n">auth_token</span> <span class="n">should</span> <span class="n">be</span> <span class="n">different</span> <span class="n">from</span> <span class="s2">&quot;auth_token_123&quot;</span>
       <span class="no">And</span> <span class="n">the</span> <span class="no">JSON</span> <span class="n">response</span> <span class="n">at</span> <span class="s2">&quot;user_role&quot;</span> <span class="n">should</span> <span class="n">be</span> <span class="s2">&quot;admin&quot;</span>
 </code></pre></div>
-
 <h3>Devise for authentication.</h3>
 
 <p>This is where things get tricky. First of all, devise needs to work well with Rails 4. There&#39;s a <code>rails4</code> branch in devise github repo which I specified in my Gemfile.</p>
@@ -112,24 +111,22 @@ also <code>rails4</code> branch of devise calls the &quot;permit&quot; method on
  when using <code>rails-api</code> and does not include StrongParameters and params will be an instance of HashWithIndifferentAccess which does not have
  the <code>permit</code> method. To solve these problems, add the following to <code>app/controllers/application_controller.rb</code></p>
 
-<div class="highlight"><pre><code class="ruby"><span class="kp">include</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">MimeResponds</span>
-<span class="kp">include</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">StrongParameters</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">include</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">MimeResponds</span>
+<span class="kp">include</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">StrongParameters</span></code></pre></div>
 
 <p>Also, devise has the default behavior of redirecting to different paths after authentication actions like sign<em>in or sign</em>up. Since we&#39;re buiding an API, which has no redirects, we should get around this. For this, I added my own <code>CustomDevise::SessionsController</code> which inherits from <code>Devise::SessionsController</code> to override the <code>create</code> method so that it doesn&#39;t redirect on successful sign in. This is how the custom controller looks like :</p>
 
-<script src="https://gist.github.com/emilsoman/5604222.js"></script>
+<p><script src="https://gist.github.com/emilsoman/5604222.js"> </script></p>
 
 <p>This works for successful authentication. But if an authentication error occurs, the control goes to <code>warden</code> which uses a <code>failure_app</code> which is nothing but a Rack application which sets the flash messages and renders/redirects based on the requested format. I need a custom json response with an <code>errors</code> key holding an array of errors instead of the default <code>error</code> key. So I added a <code>custom_auth_failure_app.rb</code> under <code>config/initializers</code> with the following content :</p>
 
-<script src="https://gist.github.com/emilsoman/5604254.js"></script>
+<p><script src="https://gist.github.com/emilsoman/5604254.js"></script></p>
 
 <p>Now we have to tell Devise to use the custom failure app by adding this to <code>config/initializers/devise.rb</code> : </p>
 
-<div class="highlight"><pre><code class="ruby">  <span class="n">config</span><span class="o">.</span><span class="n">warden</span> <span class="k">do</span> <span class="o">|</span><span class="n">manager</span><span class="o">|</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">warden</span> <span class="k">do</span> <span class="o">|</span><span class="n">manager</span><span class="o">|</span>
     <span class="n">manager</span><span class="o">.</span><span class="n">failure_app</span> <span class="o">=</span> <span class="no">CustomAuthFailure</span>
-  <span class="k">end</span>
-</code></pre></div>
+  <span class="k">end</span></code></pre></div>
 
 <h4>Token based authentication</h4>
 
@@ -148,9 +145,8 @@ also <code>rails4</code> branch of devise calls the &quot;permit&quot; method on
 <li>Set the following lines in <code>config/initializers/devise.rb</code> : </li>
 </ol>
 
-<div class="highlight"><pre><code class="ruby"><span class="n">config</span><span class="o">.</span><span class="n">http_authenticatable</span> <span class="o">=</span> <span class="kp">true</span>
-<span class="n">config</span><span class="o">.</span><span class="n">skip_session_storage</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:http_auth</span><span class="p">,</span> <span class="ss">:token_auth</span><span class="o">]</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">http_authenticatable</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">config</span><span class="o">.</span><span class="n">skip_session_storage</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:http_auth</span><span class="p">,</span> <span class="ss">:token_auth</span><span class="o">]</span></code></pre></div>
 
 <p>This will enable http basic authentication in devise and prevent session storage for token authentication.</p>
 
@@ -187,6 +183,10 @@ also <code>rails4</code> branch of devise calls the &quot;permit&quot; method on
         <span class="icon-twitter"></span>
       </a>
     </div>
+    
+      <a rel="next" href="/blog/2014/08/06/debugging-ruby-c-extensions-in-xcode" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
     
     
       <a rel="prev" href="/blog/2013/04/11/confessions-of-a-vim-maniac" id="prev">
