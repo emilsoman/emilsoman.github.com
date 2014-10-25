@@ -117,7 +117,7 @@ stepped into. Check it out :
 Good job if you've reached this far. You should be able to take this forward
 and unleash mad debugging skills upon all C extensions.
 
-To recap :
+Recap :
 
 1. We cloned the C extension source, created the Makefile.
 2. Set up XCode project and built the project.
