@@ -4,7 +4,7 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-10-25T14:13:21+05:30</updated>
+  <updated>2014-10-25T19:08:16+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -120,7 +120,7 @@ stepped into. Check it out :
 &lt;p&gt;Good job if you&amp;#39;ve reached this far. You should be able to take this forward
 and unleash mad debugging skills upon all C extensions.&lt;/p&gt;
 
-&lt;p&gt;To recap :&lt;/p&gt;
+&lt;p&gt;Recap :&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;We cloned the C extension source, created the Makefile.&lt;/li&gt;
