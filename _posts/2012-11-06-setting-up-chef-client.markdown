@@ -16,24 +16,31 @@ We need an `/etc/chef` directory to store the configurations for the client. We 
 
 To create the client.rb and validation.pem , you can do one of the two steps :
 
-- - -
+### 1. With Workstation
 
-  1) With Workstation
-  {% gist 4023622 workstation.sh %}
-  Now scp the client.rb and validation.pem files generated at the current working directory of the node.
+  ```bash
+  #On Workstation
+  ~> knife configure client ./
+  ```
 
-- - -
+Now scp the client.rb and validation.pem files generated at the current working directory of the node.
 
-  2) Without Workstation
+### 2. Without Workstation
 
 Create a barebone `/etc/chef/client.rb` directly on the client :
-{% gist 4023622 client.rb %}
+
+```ruby
+#/etc/chef/client.rb on Node
+log_level        :info
+log_location     STDOUT
+chef_server_url  'http://yourchefserver.com:4000'
+validation_client_name 'chef-validator'
+```
 
 At a minimum client.rb must contain the configuration settings necessary for chef-client to communicate with the chef-server.
 
 Also, download the `validation.pem` file from chef-server to `/etc/chef/` on the node
 
-- - -
 On the node , run :
     sudo chef-client -i 3600
 This will register the node with the server , and create `client.pem` key in `/etc/chef/` directory in the node.
