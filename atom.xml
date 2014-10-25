@@ -4,7 +4,7 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-10-25T13:41:02+05:30</updated>
+  <updated>2014-10-25T14:13:21+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -18,6 +18,8 @@ inspect local variables can be just what you need when chasing a hard to fix
 bug in your Ruby C extension. If you&amp;#39;re on OSX you&amp;#39;re in luck, because this
 post is about how you can import your C extension code as an XCode project
 and enjoy the benefits of the debugger and other developer tools.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: I&amp;#39;m using XCode v5.1.1 in this tutorial&lt;/em&gt;&lt;/p&gt;
 
 &lt;h2&gt;1. Get the code&lt;/h2&gt;
 
