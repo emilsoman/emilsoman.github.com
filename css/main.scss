@@ -5,7 +5,9 @@
 $font-sans: 'Open Sans', sans-serif;
 $font-serif: 'Lora', Georgia, serif;
 $font-code: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-$font-size-default: 18px;
+$font-size-default: 16px;
+$font-size-tablet: 16px;
+$font-size-mobile: 15px;
 
 @mixin content-margin {
   margin: 30px 40px;
@@ -206,7 +208,7 @@ ul.posts li a { color: #000; text-decoration: none; }
 
 @media only screen and (max-width : 919px) {
 
-  body { font-size: 17px; }
+  body { font-size: $font-size-tablet; }
   header .h-wrap { padding: 40px 30px; }
 
   #next,
@@ -228,7 +230,7 @@ ul.posts li a { color: #000; text-decoration: none; }
 
 @media only screen and (max-width : 479px) {
 
-  body { font-size: 15px; }
+  body { font-size: $font-size-mobile; }
   header .h-wrap { padding: 30px 20px; }
   ul.posts li .p-wrap { padding: 20px; }
   ul.posts li .p-wrap:hover { background: #67AAF7; padding-left: 20px; }
@@ -258,4 +260,24 @@ ul.posts li a { color: #000; text-decoration: none; }
 
   section#single-wrap blockquote { padding: 0 20px; border-left: 4px solid #39f; }
 
+}
+
+kbd
+{
+    -moz-border-radius:3px;
+    -moz-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+    -webkit-border-radius:3px;
+    -webkit-box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+    background-color:#f7f7f7;
+    border:1px solid #ccc;
+    border-radius:3px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 2px #fff inset;
+    color:#333;
+    display:inline-block;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    line-height:1.4;
+    margin:0 .1em;
+    padding:.1em .6em;
+    text-shadow:0 1px 0 #fff;
 }
