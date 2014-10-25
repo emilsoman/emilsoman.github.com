@@ -69,24 +69,24 @@
 
 <p>To create the client.rb and validation.pem , you can do one of the two steps :</p>
 
-<hr>
+<h3>1. With Workstation</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">  <span class="c">#On Workstation</span>
+  ~&gt; knife configure client ./
+</code></pre></div>
+<p>Now scp the client.rb and validation.pem files generated at the current working directory of the node.</p>
 
-<p>1) With Workstation
-  <script src="https://gist.github.com/4023622.js?file=workstation.sh"> </script>
-  Now scp the client.rb and validation.pem files generated at the current working directory of the node.</p>
+<h3>2. Without Workstation</h3>
 
-<hr>
-
-<p>2) Without Workstation</p>
-
-<p>Create a barebone <code>/etc/chef/client.rb</code> directly on the client :
-<script src="https://gist.github.com/4023622.js?file=client.rb"> </script></p>
-
+<p>Create a barebone <code>/etc/chef/client.rb</code> directly on the client :</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#/etc/chef/client.rb on Node</span>
+<span class="n">log_level</span>        <span class="ss">:info</span>
+<span class="n">log_location</span>     <span class="no">STDOUT</span>
+<span class="n">chef_server_url</span>  <span class="s1">&#39;http://yourchefserver.com:4000&#39;</span>
+<span class="n">validation_client_name</span> <span class="s1">&#39;chef-validator&#39;</span>
+</code></pre></div>
 <p>At a minimum client.rb must contain the configuration settings necessary for chef-client to communicate with the chef-server.</p>
 
 <p>Also, download the <code>validation.pem</code> file from chef-server to <code>/etc/chef/</code> on the node</p>
-
-<hr>
 
 <p>On the node , run :
     sudo chef-client -i 3600

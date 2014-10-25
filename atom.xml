@@ -4,7 +4,7 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-10-25T19:08:16+05:30</updated>
+  <updated>2014-10-25T19:36:14+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -651,24 +651,24 @@ Now you know what resources to use when writing your own recipes !&lt;/p&gt;
 
 &lt;p&gt;To create the client.rb and validation.pem , you can do one of the two steps :&lt;/p&gt;
 
-&lt;hr&gt;
+&lt;h3&gt;1. With Workstation&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;  &lt;span class=&quot;c&quot;&gt;#On Workstation&lt;/span&gt;
+  ~&amp;gt; knife configure client ./
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now scp the client.rb and validation.pem files generated at the current working directory of the node.&lt;/p&gt;
 
-&lt;p&gt;1) With Workstation
-  &lt;script src=&quot;https://gist.github.com/4023622.js?file=workstation.sh&quot;&gt; &lt;/script&gt;
-  Now scp the client.rb and validation.pem files generated at the current working directory of the node.&lt;/p&gt;
+&lt;h3&gt;2. Without Workstation&lt;/h3&gt;
 
-&lt;hr&gt;
-
-&lt;p&gt;2) Without Workstation&lt;/p&gt;
-
-&lt;p&gt;Create a barebone &lt;code&gt;/etc/chef/client.rb&lt;/code&gt; directly on the client :
-&lt;script src=&quot;https://gist.github.com/4023622.js?file=client.rb&quot;&gt; &lt;/script&gt;&lt;/p&gt;
-
+&lt;p&gt;Create a barebone &lt;code&gt;/etc/chef/client.rb&lt;/code&gt; directly on the client :&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#/etc/chef/client.rb on Node&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;log_level&lt;/span&gt;        &lt;span class=&quot;ss&quot;&gt;:info&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;log_location&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;STDOUT&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;chef_server_url&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://yourchefserver.com:4000&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;validation_client_name&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;chef-validator&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;At a minimum client.rb must contain the configuration settings necessary for chef-client to communicate with the chef-server.&lt;/p&gt;
 
 &lt;p&gt;Also, download the &lt;code&gt;validation.pem&lt;/code&gt; file from chef-server to &lt;code&gt;/etc/chef/&lt;/code&gt; on the node&lt;/p&gt;
-
-&lt;hr&gt;
 
 &lt;p&gt;On the node , run :
     sudo chef-client -i 3600
