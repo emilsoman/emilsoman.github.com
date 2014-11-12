@@ -17,10 +17,12 @@ and enjoy the benefits of the debugger and other developer tools.
 ## 1. Get the code
 
 First of all you need to get the code you want to debug. For this example,
-I'm going to use [Rbkit](https://github.com/code-mancers/rbkit), a Ruby profiler
-which comes with a C extension. I've cloned the gem from its github repo
-( Repo: `https://github.com/code-mancers/rbkit.git` Revision: `04212f93777e7b90fc528b7b1566` )
-and run `ruby extconf.rb` inside `ext` directory to create the Makefile. XCode
+I'm going to use Codemancers' [Rbkit](https://github.com/code-mancers/rbkit),
+a Ruby profiler which comes with a C extension.
+I've cloned the gem from its github repo ( Repo: `https://github.com/code-mancers/rbkit.git` Revision: `04212f93777e7b90fc528b7b1566` )
+and as per the README, set the RBKIT_DEV env variable so that the Makefile
+is always generated with the `-g` CFLAGS for debugging.
+Run `ruby extconf.rb` inside `ext` directory to create the Makefile. XCode
 can take it from here.
 
 ## 2. Create a new XCode project
