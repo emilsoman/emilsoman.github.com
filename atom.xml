@@ -4,7 +4,7 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-10-25T19:36:14+05:30</updated>
+  <updated>2014-11-12T11:09:14+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
@@ -24,10 +24,12 @@ and enjoy the benefits of the debugger and other developer tools.&lt;/p&gt;
 &lt;h2&gt;1. Get the code&lt;/h2&gt;
 
 &lt;p&gt;First of all you need to get the code you want to debug. For this example,
-I&amp;#39;m going to use &lt;a href=&quot;https://github.com/code-mancers/rbkit&quot;&gt;Rbkit&lt;/a&gt;, a Ruby profiler
-which comes with a C extension. I&amp;#39;ve cloned the gem from its github repo
-( Repo: &lt;code&gt;https://github.com/code-mancers/rbkit.git&lt;/code&gt; Revision: &lt;code&gt;04212f93777e7b90fc528b7b1566&lt;/code&gt; )
-and run &lt;code&gt;ruby extconf.rb&lt;/code&gt; inside &lt;code&gt;ext&lt;/code&gt; directory to create the Makefile. XCode
+I&amp;#39;m going to use Codemancers&amp;#39; &lt;a href=&quot;https://github.com/code-mancers/rbkit&quot;&gt;Rbkit&lt;/a&gt;,
+a Ruby profiler which comes with a C extension.
+I&amp;#39;ve cloned the gem from its github repo ( Repo: &lt;code&gt;https://github.com/code-mancers/rbkit.git&lt;/code&gt; Revision: &lt;code&gt;04212f93777e7b90fc528b7b1566&lt;/code&gt; )
+and as per the README, set the RBKIT_DEV env variable so that the Makefile
+is always generated with the &lt;code&gt;-g&lt;/code&gt; CFLAGS for debugging.
+Run &lt;code&gt;ruby extconf.rb&lt;/code&gt; inside &lt;code&gt;ext&lt;/code&gt; directory to create the Makefile. XCode
 can take it from here.&lt;/p&gt;
 
 &lt;h2&gt;2. Create a new XCode project&lt;/h2&gt;
