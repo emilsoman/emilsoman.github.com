@@ -4,11 +4,35 @@
   <id>http://www.emilsoman.com</id>
   <link href="http://www.emilsoman.com" />
   <link href="http://www.emilsoman.com/atom.xml" rel="self" />
-  <updated>2014-11-12T11:09:14+05:30</updated>
+  <updated>2014-12-14T03:12:04+05:30</updated>
   <rights>Copyright 2014, Emil Soman</rights>
   <author>
     <name>Emil Soman</name>
   </author>
+  
+    <entry>
+      <title>What I Learned From My Himalayan Trek</title>
+      <link href="http://www.emilsoman.com/blog/2014/12/14/what-i-learned-from-my-himalayan-trek" />
+      <summary type="html">&lt;p&gt;Reminder to self.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Pain is inevitable. Suffering is optional.&lt;/li&gt;
+&lt;li&gt;Human beings are weak and physically inefficient for survival. What makes humans thrive is their mind. The mind which is the biggest and the only real survival weapon of humans needs to be sharpened and made ready for experiences the same way muscles are built - by breaking it down and building it back up. But all we&amp;#39;re doing is softening it down by giving the mind the most comfortable and pleasurable experiences.&lt;/li&gt;
+&lt;li&gt;Carry only what&amp;#39;s the most indispensable. Every extra bit of baggage that you pack at the base will slow you down till you reach the peak. Good baggage: Things you can&amp;#39;t live without, things that will become part of you along the journey. Bad baggage: Things that you think you&amp;#39;ll use at leisure.&lt;/li&gt;
+&lt;li&gt;Descents look easy, but they hurt the most.&lt;/li&gt;
+&lt;li&gt;Ascents look impossible, but slow steps and steady breathing will get you to the top.&lt;/li&gt;
+&lt;li&gt;You need to reach your next campsite before dark no matter what.&lt;/li&gt;
+&lt;li&gt;You&amp;#39;ll think the probability of a rocks falling on your trek is so small that it will most likely not happen, say 0.1% , but as soon as you hear the deafening sound of rocks falling in the adjacent mountain, this probability immediately shoots up to 50% or more in your mind.&lt;/li&gt;
+&lt;li&gt;You&amp;#39;ll fight with nature and accept defeat at some point. And then you become friends.&lt;/li&gt;
+&lt;li&gt;The shortcut I took in my trek was the most difficult part of the trek.&lt;/li&gt;
+&lt;/ol&gt;
+</summary>
+      <id>http://www.emilsoman.com/blog/2014/12/14/what-i-learned-from-my-himalayan-trek</id>
+      <updated>2014-12-14T03:05:49+05:30</updated>
+      <author>
+        <name>Emil Soman</name>
+      </author>
+    </entry>
   
     <entry>
       <title>Debugging Ruby C Extensions in XCode</title>
