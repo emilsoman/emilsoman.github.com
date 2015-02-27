@@ -14,6 +14,6 @@ Reminder to self.
 4. Descents look easy, but they hurt the most.
 5. Ascents look impossible, but slow steps and steady breathing will get you to the top.
 6. You need to reach your next campsite before dark no matter what.
-7. You'll think the probability of a rocks falling on your trek is so small that it will most likely not happen, say 0.1% , but as soon as you hear the deafening sound of rocks falling in the adjacent mountain, this probability immediately shoots up to 50% or more in your mind.
+7. You'll think the probability of rocks falling on your trek is so small that it will most likely not happen, say 0.1% , but as soon as you hear the deafening sound of rocks falling in the adjacent mountain, this probability immediately shoots up to 50% or more in your mind.
 8. You'll fight with nature and accept defeat at some point. And then you become friends.
 9. The shortcut I took in my trek was the most difficult part of the trek.
